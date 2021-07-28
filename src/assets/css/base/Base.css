@@ -1,0 +1,77 @@
+@import url('../../font/fontawesome-5.15.1/css/all.css');
+@import url('./Active.css');
+@import url('./Button.css');
+@import url('./Dropdown.css');
+@import url('./Vadilator.css');
+@import url('./Input.css');
+@import url('./Table.css');
+
+
+
+@font-face {
+    font-family: GoogleSans-Medium;
+    src: url('../../font/GoogleSans-Medium.otf') ;
+}
+@font-face {
+    font-family: GoogleSans-Bold;
+    src: url('../../font/GoogleSans-Bold.otf') ;
+}
+@font-face {
+    font-family: GoogleSans-Regular;
+    src: url('../../font/GoogleSans-Regular.otf') ;
+}
+body{
+    font-family: GoogleSans-Regular;
+    font-size: 13px;
+    box-sizing: border-box;
+}
+#main{
+    position: relative;
+    display: flex;
+}
+.active{
+    display: block;
+}
+.correct{
+    color: #F65454 ;
+}
+.heading{
+    color: #000000;
+    font-size: 24px;
+    margin: 0;
+    font-family: GoogleSans-Bold;
+}
+.title{
+    color: #000000;
+    font-size: 20px;
+    margin: 0;
+    font-family: GoogleSans-Bold;
+}
+.title2{
+    color: #000000;
+    font-size: 14px;
+    font-weight: 800;
+    margin: 0;
+    font-family: GoogleSans-Bold;
+}
+.label-field__input{
+    color: #000000;
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0;
+    font-family: GoogleSans-Medium;
+}
+.lable {
+    color: #454545;
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0;
+    font-family: GoogleSans-Regular;
+}
+.even{
+    background-color: #e5e5e5;
+}
+
+
+
+

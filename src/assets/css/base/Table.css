@@ -1,0 +1,47 @@
+
+.delete-scroll{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 172px;
+    right: 12px;
+    width: 6px;
+    height: 39px;
+    background-color: #ffffff;
+}
+table{
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+table th, td{
+    height: 40px;
+    border-bottom: 1px solid #bbbbbb;
+    padding: 10px 16px;
+    text-align: left;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+table th{
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+}
+tr.active{
+    display: none;
+}
+tbody tr .money{
+    text-align: right;
+}
+tbody tr{
+    cursor: pointer;
+}
+tbody tr:hover{
+    background-color: rgb(187, 187, 187)
+}
+table tr:nth-child(even){
+    background-color: rgb(229, 229, 229);
+}

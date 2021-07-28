@@ -1,0 +1,106 @@
+.staff-information{
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 100%;
+    z-index: 1;
+    padding: 24px 0;
+    height: 100vh;
+}
+.staff-information.active{
+    display: none;
+}
+.staff-information__person{
+    background-color: #ffffff;
+    width:  750px;
+    margin : 0 auto;
+    border-radius: 8px;
+    
+}
+/* header */
+.staff-information__header{
+    display: flex;
+    justify-content: space-between;
+}
+.staff-information__header-heading{
+    padding: 24px;
+}
+.staff-information__header-img{
+    padding-right: 24px;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+
+/* information */
+.staff-information__img-person{
+    text-align: center;
+    padding: 24px 12px 0 36px;
+    list-style: none;
+}
+
+.staff-information__img-person img{
+    border: 1px solid #bbbbbb;
+    width: 100%;
+    border-radius: 50%;
+   
+}
+
+.staff-information__general{
+    list-style: none;
+    padding-top: 24px;
+    padding-left: 0;
+    width: 98%;
+    height: 527px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+.staff-information__general::-webkit-scrollbar
+{
+    width: 6px;
+    height: 6px;
+    background-color: #bbbbbb;
+}
+.staff-information__general::-webkit-scrollbar-thumb
+{   
+    min-height: 40px;
+    background-color: #454545;
+    border-radius: 4px;
+}
+
+.staff-information__general li{
+    padding-left: 0;
+}
+.staff-information__general-title{
+    position: relative;
+}
+.staff-information__general-title::after{
+    content: " ";
+    display: block;
+    position: absolute;
+    width: 50%;
+    height: 4px;
+    background-color: #01B075;
+    top: 110%;
+}
+.staff-information__general-item{
+    padding-left: 0;
+}
+.staff-information__general-item .dropdown{
+   width: 100%;
+}
+.staff-information__general-item-title2{
+    padding: 24px 0 4px 0;
+}
+.staff-information__input{
+    height: 40px;
+
+}
+.staff-information__work-title{
+    padding-top: 24px;
+}
+.dropdown-list__staff-location,
+.dropdown-list__staff-room{
+    z-index: 10;
+}
+/* save */
+
+
