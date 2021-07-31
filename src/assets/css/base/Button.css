@@ -1,4 +1,28 @@
 /*  */
+.button:hover,
+.button__down:hover{
+    background-color: #2FBE8E;
+}
+.button__icon-left{
+    width: 20px;
+}
+.button__text-add{
+    font-size: 13px;
+    margin: 0;
+    padding-left: 4px;
+}
+.button__down{
+    padding : 0 12px;
+    height: 40px;
+    line-height: 40px;
+    background-color: #019160;
+    color: #ffffff;
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+    font-size: 13px;
+    font-family: GoogleSans-Regular;
+    cursor: pointer;
+}
 .div-btn{
     display: flex;
     background-color: #E5E5E5;
@@ -10,56 +34,68 @@
     align-items: center;
 }
 .button{
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
     background-color: #019160;
     border-radius: 4px;
-    border: 0;
+    border: 1px solid #2FBE8E;
     height: 40px;
     min-width: 100px;
     color: #ffffff;
     font-size: 13px;
     font-family: GoogleSans-Regular;
-    text-align: center;
-    line-height: 40px;
-    margin-left: 16px;
-}
-.button-save,.button-delete{
-    border-radius: 4px;
-    border: 0;
-    height: 40px;
-    width: 100px;
-    color: #ffffff;
-    font-size: 13px;
-    font-family: GoogleSans-Regular;
-    line-height: 40px;
-    margin: 0 24px 0 16px;
+    margin-left: 10px;
     cursor: pointer;
+}
+.button i {
+    margin: 0 8px 0 0;
+}
+.button.button-save,
+.button.button-delete,
+.button.button-cancel,
+.button.button-deletepopup{
+    line-height: 40px;
+    margin: 0 36px 0 16px;
+    justify-content: center;
 }
 .button-save{
     background-color: #019160;
 }
-.button-delete{
+.button.button-delete{
     background-color: #F65454;
+    border: 1px solid #F65454;
+    margin-right: 0;
 }
-.button-save i {
-    margin: 0 8px 0 0;
+.button.button-delete:hover,
+.button.button-deletepopup:hover{
+    background-color: #fa8d87;
+    border: 1px solid #fa8d87;
 }
+.button.button-delete.active{
+    display: none;
+}
+.button.button-deletepopup{
+    background-color: #F65454;
+    border: 1px solid #F65454;
+}
+
 .button-save:hover{
     background-color: #2FBE8E;
 }
-.button-cancel{
+.button.button-cancel{
     background-color: #E5E5E5;;
     border-radius: 4px;
-    border: 0;
-    height: 40px;
-    width: 100px;
     color: #000000;
-    font-size: 13px;
-    font-family: GoogleSans-Regular;
-    text-align: center;
-    line-height: 40px;
-    cursor: pointer;
+    border: 0;
+    margin: 0 0 0 16px;
 }
 .button-cancel:hover{
     background-color: #E9EBEE;
 }
 
+.button .button-text{
+    font-size: 13px;
+    margin: 0;
+    padding-left: 4px
+}

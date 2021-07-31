@@ -4,6 +4,10 @@
     width: 100%;
     height: 100%;
     z-index: 4;
+    right: 0;
+}
+.form-warning.active{
+    display: none;
 }
 .form-warning__delete{
     background-color: #ffffff;
@@ -33,7 +37,7 @@
 }
 .form-warning__delete-icon{
     height: 30px;
-    width: 50px;
+    width: 60px;
     background-color: #bbbbbb;
     border-radius: 50%;
     text-align: center;

@@ -17,7 +17,6 @@
 }
 .menu-left{
     display: block;
-    position: relative;
     border-right: 1px solid #bbbbbb;
     width: 200px;
     padding: 0;

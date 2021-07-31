@@ -6,7 +6,7 @@
     top: 172px;
     right: 12px;
     width: 6px;
-    height: 39px;
+    height: 41px;
     background-color: #ffffff;
 }
 table{
@@ -29,19 +29,45 @@ table th{
     position: sticky;
     top: 0;
     background-color: #ffffff;
+    z-index: 1;
 }
 tr.active{
     display: none;
 }
-tbody tr .money{
+tr .rigth{
     text-align: right;
+}
+tr .between{
+    text-align: center;
 }
 tbody tr{
     cursor: pointer;
 }
 tbody tr:hover{
-    background-color: rgb(187, 187, 187)
+    background-color: rgb(229, 229, 229) !important
 }
-table tr:nth-child(even){
-    background-color: rgb(229, 229, 229);
+table tr:nth-child(2n - 1){
+    background-color:  #E9EBEE;
+}
+
+/* Checked  */
+tbody tr td input[type = "checkbox"]{
+    width: 16px;
+    height: 16px;
+    -webkit-appearance: none;
+	border: 1px solid #bbbbbb;
+	border-radius: 4px;
+    position: relative;
+}
+tbody tr td input:checked{
+    background-color: #2FBE8E;
+}
+tbody tr td input:checked::after{
+    content: '\2713';
+    display: block;
+	font-size: 12px;
+	position: absolute;
+	top: -2px;
+    left: 1px;
+	color: #ffffff;
 }
