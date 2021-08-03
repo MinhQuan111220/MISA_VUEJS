@@ -6,7 +6,7 @@
 
 <script>
 
-import EmployeeList from '../view/employees/EmployeesList.vue'
+import EmployeeList from '../../view/employees/EmployeesList.vue'
 
 export default {
     name : "TheConTent",

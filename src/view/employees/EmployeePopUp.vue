@@ -1,7 +1,7 @@
 <template>
     <div class="form-warning" :class="{'active':isHidePopUp}">
             <div class="form-warning__delete" >
-                <img src="../../../assets/icon/x.svg" alt="" class="form-warning__delete-exit" @click="btnCancel">
+                <img src="../../assets/icon/x.svg" alt="" class="form-warning__delete-exit" @click="btnCancel">
                 <h3 class="title2 form-warning__delete-header">Xóa  nhân viên</h3>
                 <div class="form-warning__delete-content">
                     <div class="form-warning__delete-icon">
@@ -26,7 +26,9 @@
 
 
 <script>
-import axios from 'axios'
+import EmployeesAPI from "../../api/components/EmployeesApi";
+
+
 export default {
     name : "EmployeePopUp",
     props :{
@@ -37,29 +39,36 @@ export default {
         },
     },
     methods: {
+        /**
+         * Xử lý khi thoát khỏi PopUp
+         * PVM.Quân (29/07/2021)
+         */
         btnCancel (){
             this.$emit('btnDeleteOnclick',true)
-            console.log(this.employeesPopUp)
         },
 
-        // Khi xóa vĩnh viễn thông tin nhân viên
+        /**
+         * Xử lý khi xóa vĩnh viễn thông tin nhân viên
+         * PVM.Quân (29/07/2021)
+         */
         btnDeleteOnClick(){
+            var _this = this
             document.querySelectorAll('tbody tr td input:checked').forEach((item,index)=>{
-                this.delete(item.value)
+                _this.delete(item.value)
                 if(index == document.querySelectorAll('tbody tr td input:checked').length-1){
                     alert('Xóa thành công')
+                    _this.$emit('btnConfirmDelete')
                 }
-            this.$emit('btnDeleteOnclick',true)
             })
+            this.$emit('btnDeleteOnclick',true) // 
         }, 
-    },
 
-    data() {
-        return {
-            // Gọi Api để xóa
-            delete : function(id){
-                axios.delete(`http://cukcuk.manhnv.net/v1/Employees/${id}`)
-                    .then(() => {
+        /**
+         * Hàm gọi Api để xóa
+         * PVM.Quân (29/07/2021)
+         */
+        delete : function(id){
+                    EmployeesAPI.delete(id).then(() => {
                     }).catch(error =>{
                          switch (error.status) {
                             case 500:
@@ -73,6 +82,10 @@ export default {
                         }
                     })
             },
+    },
+
+    data() {
+        return {
             employees : {},
         }
     },
@@ -82,5 +95,5 @@ export default {
 </script>
 
 <style scoped>
-@import url('../../../assets/css/form/FormWarning.css');
+@import url('../../assets/css/form/FormWarning.css');
 </style>

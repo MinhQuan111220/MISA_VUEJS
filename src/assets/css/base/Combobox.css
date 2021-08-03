@@ -15,7 +15,7 @@
     position: relative;
     min-width: 180px;
     justify-content: space-between;
-   
+    margin-left: 40px;
 }
 .combobox.focus{
     border: 1px solid #01b075;
@@ -35,7 +35,7 @@
     color: #454545;
     height: 38.5px;
     border-left: 1px solid #bbbbbb;
-    line-height: 38.5px;
+    line-height: 38.5px !important; 
 }
 .dropup-icon{
     background-color: #E5E5E5;

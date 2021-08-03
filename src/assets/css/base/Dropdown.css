@@ -22,6 +22,7 @@
     height: 100%;
     border: 0;
     outline: none;
+    cursor: default;
 }
 .dropdown-icon,
 .dropup-icon{
@@ -32,7 +33,7 @@
     color: #454545;
     height: 38.5px;
     border-left: 1px solid #bbbbbb;
-    line-height: 38.5px;
+    line-height: 38.5px !important;
 }
 .dropup-icon{
     background-color: #E5E5E5;
