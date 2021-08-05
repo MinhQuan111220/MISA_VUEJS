@@ -27,7 +27,7 @@
     outline: none;
 }
 .combobox-icon,
-.dropup-icon{
+.combobox_dropup-icon{
     padding: 0 12px;
     cursor: pointer;
     border-bottom-right-radius: 3px;
@@ -37,9 +37,12 @@
     border-left: 1px solid #bbbbbb;
     line-height: 38.5px !important; 
 }
-.dropup-icon{
+.combobox_dropup-icon{
     background-color: #E5E5E5;
     border-left: 1px solid #E5E5E5;
+}
+.combobox_dropup-icon.active{
+    display: none;
 }
 .combobox-icon:hover{
     background-color: #E5E5E5;

@@ -30,7 +30,7 @@ import EmployeesAPI from "../../api/components/EmployeesApi";
 
 
 export default {
-    name : "EmployeePopUp",
+    name : "PopUp",
     props :{
         isHidePopUp : {
             type : Boolean,

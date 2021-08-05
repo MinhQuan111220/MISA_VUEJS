@@ -14,14 +14,13 @@
     font-size: 13px;
     font-family: GoogleSans-Regular;
 }
-.input:focus,
-.auto-focus__input:focus{
+.input:focus{
     border : 1px solid #019160;
 }
 .input-icon{
     position: absolute;
     font-size: 13px;
-    top: 55px;
+    top: 56px;
     right: 24px;
 }
 .input-vnd{

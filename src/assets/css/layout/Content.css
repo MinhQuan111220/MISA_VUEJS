@@ -1,4 +1,7 @@
 
+.page{
+    width: calc(100% - 200px);
+}
 .content{
     width: calc(100vw - 200px);
     position: relative;

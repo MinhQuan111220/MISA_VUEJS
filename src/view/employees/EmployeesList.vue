@@ -111,7 +111,7 @@
         v-bind:department='departmentsDropDown'
         v-bind:position='positionsDropDown'
         />
-        <EmployeePopUp v-bind:isHidePopUp='isHidePopUp' 
+        <PopUp v-bind:isHidePopUp='isHidePopUp' 
         @btnDeleteOnclick ="btnDeleteOnclick"
         @btnConfirmDelete ="conFirm"
         />
@@ -121,7 +121,7 @@
 <script>
 
 import EmployeeDetail from './EmployeeDetail.vue'
-import EmployeePopUp from './EmployeePopUp.vue'
+import PopUp from '../../components/base/BasePopUp.vue'
 import ComBoBox from '../../components/base/BaseComBoBox.vue'
 import Table from '../../components/base/BaseTable.vue'
 import EmployeesAPI from "../../api/components/EmployeesApi";
@@ -133,7 +133,7 @@ export default {
     name : "EmployeeList",
     components : {
         EmployeeDetail,
-        EmployeePopUp,
+        PopUp,
         ComBoBox,
         Table
     },
@@ -144,7 +144,10 @@ export default {
     created() {
         var _this = this
 
-        // Lấy dữ liệu phòng ban
+        /**
+         * Lấy dữ liệu phòng ban
+         * creatAt : PVM.Quân (29/07/2021)
+         */
         DepartmentAPI.getAll().then(res =>{
             _this.departments = res.data
             _this.departmentsDropDown = res.data
@@ -162,7 +165,10 @@ export default {
                     })
 
 
-        // Lấy dữ liệu các vị trí
+        /**
+         * Lấy dữ liệu các vị trí
+         * creatAt : PVM.Quân (29/07/2021)
+         */
         PositionAPI.getAll().then(res =>{ 
             _this.positions = res.data
             _this.positionsDropDown = res.data
@@ -179,7 +185,10 @@ export default {
                         }
                     })
 
-        // Lấy dữ liệu nhân viên
+         /**
+         * Lấy dữ liệu nhân viên
+         * creatAt : PVM.Quân (29/07/2021)
+         */
         EmployeesAPI.getAll().then(res =>{
             _this.employees = res.data
         }).catch(error =>{
@@ -203,7 +212,10 @@ export default {
     watch : {
         employees (){
         var _this = this
-        // Lấy dữ liệu nhân viên sau khi bị thay đổi
+         /**
+         * Lấy dữ liệu nhân viên sau khi bị thay đổi
+         * creatAt : PVM.Quân (29/07/2021)
+         */
         EmployeesAPI.getAll().then(res =>{
             _this.employees = res.data
         }).catch(error =>{
@@ -231,20 +243,28 @@ export default {
         conFirm(){
             this.isDelete = true;
         },
+
+         /**
+         * Lấy các danh sách cần xóa từ baseTable
+         * PVM.Quân (04/08/2021)
+         */
         getDeleteList(deleteList){
             this.deleteList = deleteList
         },
+
         /**
          * Hiển thị form chi tiết khi nhấn button thêm nhân viên
          * Author : PVM.Quân (29/07/2021)
          */
-        
-        // hiển thị form thêm nhân viên 
-        btnAddOnclick(isHide){
+        btnAddOnclick(isHide,mode){
             this.isHideDiaLogDetail = isHide
-            this.mode = 0
+            this.mode = mode
         },
-        // hiển thị form sửa nhân viên
+
+        /**
+         * Hiển thị form chi tiết khi Sửa nhân viên
+         * Author : PVM.Quân (29/07/2021)
+         */
         trDbOnClick(employeeId){
             this.isHideDiaLogDetail = false
             this.employeeId = employeeId
@@ -252,15 +272,14 @@ export default {
         },
 
         /**
-         * hiển thị button xóa và lấy những id cần xóa
+         * Khi nhấn nút xóa  tất cả
          * Author : PVM.Quân (29/07/2021)
          */
-        
-        // kiểm tra xem đã có table nào muốn xóa không
-        // khi nhấn nút xóa  tất cả
         btnDeleteOnclick(isHidePopUp){
             this.isHidePopUp = isHidePopUp
-        }
+        },
+
+        
     },
     data() {
         return{

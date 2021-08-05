@@ -2,7 +2,7 @@
     <div class="combobox"  :id="'combobox'+name" @click="selectItem" :class="{'focus':isFocus}">
             <input type="text" class="combobox-input active" v-model="nameShow" :placeholder="value">
             <i class="fas fa-chevron-down combobox-icon" :class="{'active':isHideIconUp}"></i>
-            <i class="fas fa-chevron-up dropup-icon " :class="{'active':isHideIconDown}"></i>
+            <i class="fas fa-chevron-up combobox_dropup-icon " :class="{'active':isHideIconDown}"></i>
             <ul class="combobox-list" :class="{'active':isHide}">
                 <li class="combobox-list__item combobox-list__item-focus" v-on:click="showItemListCBB(value,0)" :id="'combobox'+id">
                     <i class="fas fa-check"></i>
