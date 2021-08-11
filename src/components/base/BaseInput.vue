@@ -47,7 +47,7 @@ export default {
   props: {
     autofocus :{
       type : Boolean,
-      required : false,c
+      required : false,
     },
     name: {
       type: [String, Number],

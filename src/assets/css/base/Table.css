@@ -3,17 +3,13 @@
     content: "";
     display: block;
     position: absolute;
-    top: 172px;
+    top: 122px;
     right: 12px;
     width: 6px;
-    height: 41px;
-    background-color: #ffffff;
+    height: 40px;
+    background-color: #E9EBEE;
 }
-table{
-    height: 100%;
-    width: 100%;
-    position: relative;
-}
+
 
 table th, td{
     height: 40px;
@@ -43,12 +39,17 @@ tr .between{
 tbody tr{
     cursor: pointer;
 }
+tbody tr.focus{
+    background-color: rgb(229, 229, 229);
+}
+tbody tr.checked{
+    background-color: #EBF9F4 !important;
+}
 tbody tr:hover{
-    background-color: rgb(229, 229, 229) !important
+    background-color: rgb(229, 229, 229)
 }
-table tr:nth-child(2n - 1){
-    background-color:  #E9EBEE;
-}
+
+
 
 /* Checked  */
 tbody tr td input[type = "checkbox"]{
@@ -60,7 +61,7 @@ tbody tr td input[type = "checkbox"]{
     position: relative;
 }
 tbody tr td input:checked{
-    background-color: #2FBE8E;
+    background-color: #019160;
 }
 tbody tr td input:checked::after{
     content: '\2713';

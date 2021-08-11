@@ -12,20 +12,17 @@
 }
 
 /* Menu left */
-.main{
+.header{
     display: flex;
-}
-.menu-left{
-    display: block;
-    border-right: 1px solid #bbbbbb;
-    width: 200px;
     padding: 0;
     font-family: GoogleSans-Medium;
+    position: relative;
 }
-.menu-left__logo{
+.header-left__logo{
     display: flex;
     height: 48px;
     line-height: 48px;
+    width: 200px;
 }
 .icon-box .icon-toggle{
     height: 24px;
@@ -34,49 +31,88 @@
 .logo-box .logo{
     height: 24px;
 }
-.menu-left__content{
-    display: block;
-    list-style: none;
-    padding: 0;
-}
-.menu-left__item{
+
+.content__header{
     display: flex;
-    height: 44px;
+    width: 100%;
+    height: 49px;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    justify-content: space-between;
+    position: relative;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    border-left: 1px solid #bbbbbb;
+    flex: 1;
+}
+.content__header-text{
+    display: flex;
+    height: 48px;
     align-items: center;
 }
-.menu-left__item:hover{
-    background-color: #e5e5e5;
-    color: #000000;
-    font-family: GoogleSans-Regular;
-}
-.menu-left__item-focus{
-    background-color:  #019160;
-}
-.menu-left__list-icon{
-    width: 52px;
+
+.BD{
+    height: 80%;
+    width: 40px;
+    border-radius:6px;
+    background-color: #EBF4FF;
     text-align: center;
+    margin-left: 24px;
 }
-.menu-left__icon{
-    width: 20px;
+.BD h2{
+    font-size: 14px;
+    line-height: calc((48px*80)/100);
+    color: #0075FF;
+    cursor: default;
 }
-.menu-left__name{
-    text-decoration: none;
+.text-title{
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.text-title i{
+    font-size: 12px;
+    padding-left: 10px;
+    
+}
+.account{
+    display: flex;
+    align-items: center;
+}
+.avatar{
+    width: 30px;
+    margin-left: 16px;
+    cursor: pointer;
+}
+.account-name{
+    padding: 0 16px;
+    cursor: pointer;
+}
+.account__notification{
+    font-size: 18px;
+    color: #454545 ;
+    font-weight: 200;
+    cursor: pointer;
+    position: relative;
+}
+.account__notification::after{
+    content: "";
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    background-color: red;
+    top: 2%;
+    right: calc(16% - 3px);
+    border-radius: 3.5px;
+    border: 2px solid #ffffff;
+    display: block;
+}
+.account__option{
     font-size: 13px;
-    color:#454545;
-    width: 100%;
-    height: 100%;
-    line-height: 44px;
-    padding-top: 1.5px;
+    padding-right: 16px;
+    margin-top: 2px;
+    cursor: pointer;
+    color: #E5E5E5;
 }
-.menu-left__name:hover{
-    text-decoration: none;
-    color:  #000000;
-}
-.menu-left__item.menu-left__item-focus .menu-left__name
-{
-    color: #ffffff;
-    font-family: GoogleSans-Medium;
-}
-.menu-left__item.menu-left__item-focus:hover{
-    background-color:  #019160;
-}
+

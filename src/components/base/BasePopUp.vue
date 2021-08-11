@@ -1,16 +1,25 @@
 <template>
-    <div class="form-warning" :class="{'active':isHidePopUp}">
-            <div class="form-warning__delete" >
-                <img src="../../assets/icon/x.svg" alt="" class="form-warning__delete-exit" @click="btnCancel">
-                <h3 class="title2 form-warning__delete-header">Xóa  nhân viên</h3>
-                <div class="form-warning__delete-content">
-                    <div class="form-warning__delete-icon">
+    <div id="pop-up-delete" class="pop-up" :class="{'show':isHidePopUp}">
+            <div class="pop-up-content" >
+                <button id="close-popup-delete" class="popup-close-btn" @click="btnCancel">
+                        <img
+                            src="../../assets/icon/x.svg"
+                            alt=""
+                            class="img-exit"
+                            @click="btnCancel"
+                        />
+                </button>
+                <div class="pop-up-info">
+                <div class="pop-up-title">Xóa nhân viên</div>
+                <div class="popup-icon-description">
+                    <div class="pop-up-icon">
                         <i class="fas fa-exclamation-triangle"></i>
                     </div>
-                    <h3 class="lable">Bạn có chắc chắn muốn xóa nhân viên 
-                        ra khỏi danh sách không ? Xóa là sẽ không khôi phục lại được !
-                    </h3>
+                    <div class="pop-up-description">
+                        <div>{{value}}</div>
+                    </div>
                 </div>
+            </div>
                 <div class="div-btn">
                     <div class="button button-cancel" @click="btnCancel">
                         Hủy
@@ -29,12 +38,18 @@
 import EmployeesAPI from "../../api/components/EmployeesApi";
 
 
+
+
 export default {
     name : "PopUp",
     props :{
         isHidePopUp : {
             type : Boolean,
             default : true,
+            required : true,
+        },
+        deleteList :{
+            type : Array,
             required : true,
         },
     },
@@ -53,33 +68,24 @@ export default {
          */
         btnDeleteOnClick(){
             var _this = this
-            document.querySelectorAll('tbody tr td input:checked').forEach((item,index)=>{
-                _this.delete(item.value)
-                if(index == document.querySelectorAll('tbody tr td input:checked').length-1){
-                    alert('Xóa thành công')
-                    _this.$emit('btnConfirmDelete')
-                }
+            _this.$emit('btnConfirmDelete',true)
+            this.deleteList.forEach((item)=>{
+                _this.delete(item)
             })
-            this.$emit('btnDeleteOnclick',true) // 
+            this.$emit('btnDeleteOnclick',true) 
         }, 
 
         /**
          * Hàm gọi Api để xóa
          * PVM.Quân (29/07/2021)
          */
-        delete : function(id){
+        delete :  function(id){
+            var _this = this
                     EmployeesAPI.delete(id).then(() => {
+                         _this.$emit("refeshData")
+                       
                     }).catch(error =>{
-                         switch (error.status) {
-                            case 500:
-                                console.log('Có lỗi từ server, vui lòng thử lại');
-                                break;
-                            case 400:
-                                console.log('Dữ liệu không hợp lệ');
-                                break;
-                            default:
-                                break;
-                        }
+                        _this.$emit("deleteFail",error)
                     })
             },
     },
@@ -87,8 +93,30 @@ export default {
     data() {
         return {
             employees : {},
+            isShowToast : '',
+            lable : '',
+            isSuccess : '',
+            isWarning :'',
+            value : '',
         }
     },
+
+    watch : {
+        deleteList : function(){
+            if(this.deleteList.length == 1){
+                var _this = this;
+                EmployeesAPI.get(_this.deleteList[0])
+                    .then((res) => {
+                        _this.value = `Bạn có chắc chắn muốn xóa nhân viên "${res.data.FullName.toUpperCase()}" có mã nhân viên "${res.data.EmployeeCode.toUpperCase()}" ra khỏi danh sách không ? Xóa là sẽ không khôi phục lại được !`
+                    })
+                    .catch((error) => {
+                    _this.consoleError(error.response.status);
+                    });
+            }else{
+                this.value = 'Bạn có chắc chắn muốn xóa nhân viên ra khỏi danh sách không ? Xóa là sẽ không khôi phục lại được !'
+            }
+        }
+    }
     
 }
 

@@ -16,7 +16,7 @@ class Vadilator{
                     return element.parentElement
                 }
                 element = element.parentElement
-            }
+               }
         }
         function validate(inputelement,rule){
             var errorElement = getParent(inputelement,options.formGroupSelector).querySelector(options.errorSelector)
@@ -125,7 +125,7 @@ isRequired = function(selector){
   * @returns 
   * creatBy : PVM.Quân(04/08/2021)
   */
-EmployeeCode = function(selector,Code){
+Code = function(selector,Code){
      return {
         selector: selector,
         test: function(value){
