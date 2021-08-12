@@ -37,6 +37,8 @@ namespace MISA.CuckCuk.Api.Controllers
             // 4. Trả về cho client
             var response = StatusCode(200, employees);
             return response;
+
+            
         }
 
         /// <summary>
