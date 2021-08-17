@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace MISA.CuckCuk.Api.Model.ModelDepartment
+namespace MISA.Core.Entities.Interfaces.Repository
 {
-    public class Department
+    public interface IPositionRepository
     {
     }
 }

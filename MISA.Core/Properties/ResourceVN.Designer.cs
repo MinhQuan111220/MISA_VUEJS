@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MISA.CuckCuk.Api.Properties {
+namespace MISA.Core.Properties {
     using System;
     
     
@@ -22,24 +22,24 @@ namespace MISA.CuckCuk.Api.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
+    internal class ResourceVN {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal ResourceVN() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MISA.CuckCuk.Api.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MISA.Core.Properties.ResourceVN", typeof(ResourceVN).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace MISA.CuckCuk.Api.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace MISA.CuckCuk.Api.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kiểm tra lại code. Hiện đang có lỗi phần backend!.
         /// </summary>
-        public static string DevMsg_Erro500 {
+        internal static string DevMsg_Erro500 {
             get {
                 return ResourceManager.GetString("DevMsg_Erro500", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace MISA.CuckCuk.Api.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Mã khách hàng không được để trống !.
         /// </summary>
-        public static string EmptyCustomerCode {
+        internal static string EmptyCustomerCode {
             get {
                 return ResourceManager.GetString("EmptyCustomerCode", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace MISA.CuckCuk.Api.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Mã vị trí không được để trống !.
         /// </summary>
-        public static string EmptyDepartmentCode {
+        internal static string EmptyDepartmentCode {
             get {
                 return ResourceManager.GetString("EmptyDepartmentCode", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace MISA.CuckCuk.Api.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Mã nhân viên không được để trống !.
         /// </summary>
-        public static string EmptyEmployeeCode {
+        internal static string EmptyEmployeeCode {
             get {
                 return ResourceManager.GetString("EmptyEmployeeCode", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace MISA.CuckCuk.Api.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Mã phòng ban không được để trống !.
         /// </summary>
-        public static string EmptyPositonCode {
+        internal static string EmptyPositonCode {
             get {
                 return ResourceManager.GetString("EmptyPositonCode", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace MISA.CuckCuk.Api.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Máy chủ hiện đang có lỗi vui lòng liên hệ MISA để giải quyết.
         /// </summary>
-        public static string Erro500 {
+        internal static string Erro500 {
             get {
                 return ResourceManager.GetString("Erro500", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace MISA.CuckCuk.Api.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Email của bạn chưa đúng định dạng. Vui lòng kiểm tra lại !.
         /// </summary>
-        public static string FormatEmail {
+        internal static string FormatEmail {
             get {
                 return ResourceManager.GetString("FormatEmail", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace MISA.CuckCuk.Api.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Mã này đã tồn tại. Bạn vui lòng chọn mã khác !.
         /// </summary>
-        public static string MatchCode {
+        internal static string MatchCode {
             get {
                 return ResourceManager.GetString("MatchCode", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace MISA.CuckCuk.Api.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Dữ liệu bạn gửi lên không hợp lệ. Vui lòng thử lại !.
         /// </summary>
-        public static string UserMsg_Erro400 {
+        internal static string UserMsg_Erro400 {
             get {
                 return ResourceManager.GetString("UserMsg_Erro400", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace MISA.CuckCuk.Api.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Hệ thống chưa được ủy quyền. Máy chủ từ chối yêu cầu của bạn !.
         /// </summary>
-        public static string UserMsg_Erro401 {
+        internal static string UserMsg_Erro401 {
             get {
                 return ResourceManager.GetString("UserMsg_Erro401", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace MISA.CuckCuk.Api.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Máy chủ từ chối yêu cầu của bạn !.
         /// </summary>
-        public static string UserMsg_Erro403 {
+        internal static string UserMsg_Erro403 {
             get {
                 return ResourceManager.GetString("UserMsg_Erro403", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace MISA.CuckCuk.Api.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Máy chủ không tìm thấy dữ liệu tương ứng với dữ liệu bạn gửi lên!.
         /// </summary>
-        public static string UserMsg_Erro404 {
+        internal static string UserMsg_Erro404 {
             get {
                 return ResourceManager.GetString("UserMsg_Erro404", resourceCulture);
             }

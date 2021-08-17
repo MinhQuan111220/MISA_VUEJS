@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace MISA.CuckCuk.Api.Model
+namespace MISA.Core.Entities.ModelCustomer
 {
-    public class Customer : BaseEnity
+    public class Customer : BaseEntity
     {
         #region Property
         /// <summary>

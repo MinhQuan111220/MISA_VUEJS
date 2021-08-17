@@ -4,205 +4,228 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MISA.CuckCuk.Api.Model.ModeelEmployee;
+using MISA.Core.Entities;
 using System.Data;
 using MySqlConnector;
 using Dapper;
+using MISA.Core.Entities.Interfaces.Services;
+using MISA.Core.Entities.Services;
+using MISA.Core.Entities.Interfaces.Repository;
+using MISA.Core.Entities.ModelEmployee;
 
 namespace MISA.CuckCuk.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class EmployeesController : ControllerBase
     {
-        /// Get , Post, Put , Delete
-        /// Lấy ra tất cả nhân vien
-        [HttpGet]
-        public IActionResult GetEmployees(string name, int? age)
+        IEmployeeService _employeeService;
+        IEmployeeRepository _employeeRepository;
+        IBaseRepository _baseRepository;
+
+
+        public EmployeesController(IEmployeeService employeeService, IEmployeeRepository employeeRepository, IBaseRepository baseRepository)
         {
-            // Truy cập vào database 
-            // 1. Khai báo thông tin kết nối với database
-            var connectionString = "Host = 47.241.69.179;" +
-                "Database = MISA.CukCuk_Demo_NVMANH;" +
-                "User Id  = dev;" +
-                "Password = 12345678";
-
-            // 2. Khởi tạo đối tượng kết nối với database
-            IDbConnection dbConnection = new MySqlConnection(connectionString);
-
-            // 3. Lấy dữ liệu 
-            var sqlCommand = "SELECT * FROM Employee";
-            var employees = dbConnection.Query<Employee>(sqlCommand);
-
-            // 4. Trả về cho client
-            var response = StatusCode(200, employees);
-            return response;
-
-            
+            _employeeService = employeeService;
+            _employeeRepository = employeeRepository;
+            _baseRepository = baseRepository;
         }
-
         /// <summary>
-        /// Lấy ra nhân viên theo id
+        /// Lấy thông tin tất cả nhân viên
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult GetEmployees([FromQuery] string PositionId, [FromQuery] string DepartmentId)
+        {
+            try
+            {
+                var employees = _baseRepository.GetAll<Employee>();
+
+                if (PositionId == ""|| PositionId == null && DepartmentId == null || DepartmentId == "")
+                {
+                    employees = _baseRepository.GetAll<Employee>();
+                }
+                else
+                {
+                    employees = _employeeRepository.GetDeAndPo(PositionId, DepartmentId);
+
+                }
+                // 4. Trả về cho client
+                if (employees != null)
+                {
+                    var response = StatusCode(200, employees);
+                    return response;
+                }
+                else
+                {
+                    return StatusCode(204, employees);
+                }
+                
+
+            }
+            catch (Exception ex)
+            {
+                var erroObject = new
+                {
+                    devMsg = ex.Message,
+                    userMsg = Properties.Resources.Erro500,
+                    erorrCode = "misa-001",
+                };
+                return StatusCode(500, erroObject);
+            }
+        }
+        /// <summary>
+        /// Lấy thông tin nhân viên theo Id
         /// </summary>
         /// <param name="employeeId"></param>
         /// <returns></returns>
         [HttpGet("{employeeId}")]
         public IActionResult GetById(Guid employeeId)
         {
-            // Truy cập vào database 
-            // 1. Khai báo thông tin kết nối với database
-            var connectionString = "Host = 47.241.69.179;" +
-                "Database = MISA.CukCuk_Demo_NVMANH;" +
-                "User Id  = dev;" +
-                "Password = 12345678";
 
-            // 2. Khởi tạo đối tượng kết nối với database
-            IDbConnection dbConnection = new MySqlConnection(connectionString);
+            // Lấy thông tin theo id
+            try
+            {
+                var employee = _baseRepository.GetById<Employee>(employeeId);
+                // 4. Tra ve cho client
+                if (employee != null)
+                {
+                    return StatusCode(200, employee);
 
-            // 3. Lấy dữ liệu 
-            string sqlCommand = $"SELECT * FROM Employee WHERE employeeId = @employeeIdParam";
-            DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@employeeIdParam", employeeId);
-            var employee = dbConnection.QueryFirstOrDefault<Employee>(sqlCommand, param: parameters);
-
-            // 4. Trả về cho client
-            var response = StatusCode(200, employee);
-            return response;
+                }
+                else
+                {
+                    var erroObject = new
+                    {
+                        userMsg = Properties.Resources.UserMsg_Erro400,
+                        erorrCode = "misa-001",
+                    };
+                    return StatusCode(400, erroObject);
+                }
+            }
+            catch (Exception ex)
+            {
+                var erroObject = new
+                {
+                    devMsg = ex.Message,
+                    userMsg = Properties.Resources.Erro500,
+                    erorrCode = "misa-001",
+                };
+                return StatusCode(500, erroObject);
+            }
         }
         /// <summary>
-        /// Thêm mới nhân viên
+        /// Thêm mới một nhân viên
         /// </summary>
         /// <param name="employee"></param>
         /// <returns></returns>
         [HttpPost]
         public IActionResult Insertemployee(Employee employee)
         {
-            //Sinh mã Guid cho employeeId
-            employee.EmployeeId = Guid.NewGuid();
-            // Truy cập vào database 
-            // 1. Khai báo thông tin kết nối với database
-            var connectionString = "Host = 47.241.69.179;" +
-                "Database = MISA.CukCuk_Demo_NVMANH;" +
-                "User Id  = dev;" +
-                "Password = 12345678";
 
-            // 2. Khởi tạo đối tượng kết nối với database
-            IDbConnection dbConnection = new MySqlConnection(connectionString);
-            // Khai báo dynamicParam
-            var dynamicParam = new DynamicParameters();
-
-            // 3. Thêm mới dữ liệu 
-            var columsName = string.Empty;
-            var columsParam = string.Empty;
-            // Đọc từng property của object
-            var properties = employee.GetType().GetProperties();
-            // Duyệt từng property
-            foreach (var prop in properties)
+            //Bắt đầu thêm mới
+            try
             {
-                // Lấy tên của prop :
-                var propName = prop.Name;
-                // Lấy ra value của prop :
-                var propValue = prop.GetValue(employee);
-                // Lấy kiểu dữ liệu của prop :
-                var propType = prop.PropertyType;
 
-                // Them param tương ứng với mỗi property
-                dynamicParam.Add($"@{propName}", propValue);
+                var serviceResult = _employeeService.Add(employee);
+                // 4. Tra ve cho client
+                if (serviceResult.isValid == true)
+                {
+                    return StatusCode(201, serviceResult.Data);
 
-                columsName += $"{propName},";
-                columsParam += $"@{propName},";
+                }
+                else
+                {
+                    return BadRequest(serviceResult.Data);
+                }
             }
-            columsName = columsName.Remove(columsName.Length - 1, 1);
-            columsParam = columsParam.Remove(columsParam.Length - 1, 1);
-
-            var sqlComand = $"INSERT INTO Employee({columsName}) VALUES({columsParam})";
-            var rowEffects = dbConnection.Execute(sqlComand, param: dynamicParam);
-            var response = StatusCode(200, rowEffects);
-            return response;
+            catch (Exception ex)
+            {
+                var erroObject = new
+                {
+                    devMsg = ex.Message,
+                    userMsg = Properties.Resources.Erro500,
+                    erorrCode = "misa-001",
+                };
+                return StatusCode(500, erroObject);
+            }
         }
 
         /// <summary>
-        /// Sửa nhân viên theo id
+        /// Sửa dữ liệu cho một nhân viên
         /// </summary>
         /// <param name="employeeId"></param>
         /// <param name="employee"></param>
         /// <returns></returns>
         [HttpPut("{employeeId}")]
-        public IActionResult Updateemployee(Guid employeeId, Employee employee)
+        public IActionResult Updateemployee(Employee employee, Guid employeeId)
         {
-            // Truy cập vào database 
-            // 1. Khai báo thông tin kết nối với database
-            var connectionString = "Host = 47.241.69.179;" +
-                "Database = MISA.CukCuk_Demo_NVMANH;" +
-                "User Id  = dev;" +
-                "Password = 12345678";
 
-            // 2. Khởi tạo đối tượng kết nối với database
-            IDbConnection dbConnection = new MySqlConnection(connectionString);
-            // Khai báo dynamicParam
-            var dynamicParam = new DynamicParameters();
-            // 3. Sửa dữ liệu 
-            var columsName = string.Empty;
-            var columsParam = string.Empty;
-            // Đọc từng property của object
-            var properties = employee.GetType().GetProperties();
-            // Duyệt từng property
-            var index = 0;
-            foreach (var prop in properties)
+            try
             {
-                index++;
-                // Lấy tên của prop :
-                var propName = prop.Name;
-                // Lấy ra value của prop :
-                var propValue = prop.GetValue(employee);
-                // Lấy kiểu dữ liệu của prop :
-                var propType = prop.PropertyType;
 
-                // Them param tương ứng với mỗi property
-                dynamicParam.Add($"@{propName}", propValue);
+                var serviceResult = _employeeService.Update(employee, employeeId);
+                // 4. Tra ve cho client
+                if (serviceResult.isValid == true)
+                {
+                    return StatusCode(200, serviceResult.Data);
 
-                columsName += $" {propName} = @{propName},";
-
+                }
+                else
+                {
+                    return BadRequest(serviceResult.Data);
+                }
             }
-
-            columsName = columsName.Remove(columsName.Length - 1, 1);
-            var sqlComand = $"UPDATE Employee SET {columsName} WHERE employeeId = @employeeIdParam";
-
-            dynamicParam.Add("@employeeIdParam", employeeId);
-
-            var rowEffects = dbConnection.Execute(sqlComand, param: dynamicParam);
-
-            var response = StatusCode(200, rowEffects);
-            return response;
+            catch (Exception ex)
+            {
+                var erroObject = new
+                {
+                    devMsg = ex.Message,
+                    userMsg = Properties.Resources.Erro500,
+                    erorrCode = "misa-001",
+                };
+                return StatusCode(500, erroObject);
+            }
         }
 
         /// <summary>
-        /// Xóa nhân viên theo id
+        /// Xóa thông tin nhân viên theo 
         /// </summary>
         /// <param name="employeeId"></param>
         /// <returns></returns>
         [HttpDelete("{employeeId}")]
         public IActionResult Deleteemployee(Guid employeeId)
         {
-            // Truy cập vào database 
-            // 1. Khai báo thông tin kết nối với database
-            var connectionString = "Host = 47.241.69.179;" +
-                "Database = MISA.CukCuk_Demo_NVMANH;" +
-                "User Id  = dev;" +
-                "Password = 12345678";
+            try
+            {
+                var employee = _baseRepository.Delete<Employee>(employeeId);
+                // 4. Tra ve cho client 
+                if (employee == 1)
+                {
+                    return StatusCode(200, employee);
 
-            // 2. Khởi tạo đối tượng kết nối với database
-            IDbConnection dbConnection = new MySqlConnection(connectionString);
+                }
+                else
+                {
+                    var erroObject = new
+                    {
+                        userMsg = Properties.Resources.UserMsg_Erro400,
+                        erorrCode = "misa-001",
+                    };
+                    return StatusCode(400, erroObject);
+                }
 
-            // 3. Xoá dữ liệu theo id
-            string sqlCommand = $"DELETE FROM Employee WHERE employeeId = @employeeIdParam";
-            DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@employeeIdParam", employeeId);
-            var employee = dbConnection.Execute(sqlCommand, param: parameters);
-
-            // 4. Trả về cho client
-            var response = StatusCode(200, employee);
-            return response;
+            }
+            catch (Exception ex)
+            {
+                var erroObject = new
+                {
+                    devMsg = ex.Message,
+                    userMsg = Properties.Resources.Erro500,
+                    erorrCode = "misa-001",
+                };
+                return StatusCode(500, erroObject);
+            }
         }
     }
 

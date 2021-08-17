@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace MISA.CuckCuk.Api.Model
+namespace MISA.Core.Entities.ModelCustomer
 {
-    public class CustomerGroup : BaseEnity
+    public class CustomerGroup : BaseEntity
     {
         #region Property
         /// <summary>
@@ -14,12 +15,12 @@ namespace MISA.CuckCuk.Api.Model
         public Guid CustomerGroupId { get; set; }
 
         /// <summary>
-        /// Ten
+        /// Tên nhóm khách hàng
         /// </summary>
         public String CustomerGroupName { get; set; }
 
         /// <summary>
-        /// 
+        /// Miêu tả khách hàng
         /// </summary>
         public String Description { get; set; }
 

@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MISA.CuckCuk.Api", "MISA.CuckCuk.Api\MISA.CuckCuk.Api.csproj", "{F1C8CF16-ABFA-4C5C-B73F-22E886020D82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MISA.CuckCuk.Api", "MISA.CuckCuk.Api\MISA.CuckCuk.Api.csproj", "{F1C8CF16-ABFA-4C5C-B73F-22E886020D82}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MISA.Core", "MISA.Core\MISA.Core.csproj", "{132FEAB2-BF5A-415B-9AC3-6F2CBFC17A31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MISA.Infarstructure", "MISA.Infarstructure\MISA.Infarstructure.csproj", "{A6810DA6-C1ED-4E2D-BD92-E53AF34F516F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{F1C8CF16-ABFA-4C5C-B73F-22E886020D82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1C8CF16-ABFA-4C5C-B73F-22E886020D82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1C8CF16-ABFA-4C5C-B73F-22E886020D82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{132FEAB2-BF5A-415B-9AC3-6F2CBFC17A31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{132FEAB2-BF5A-415B-9AC3-6F2CBFC17A31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{132FEAB2-BF5A-415B-9AC3-6F2CBFC17A31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{132FEAB2-BF5A-415B-9AC3-6F2CBFC17A31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6810DA6-C1ED-4E2D-BD92-E53AF34F516F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6810DA6-C1ED-4E2D-BD92-E53AF34F516F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6810DA6-C1ED-4E2D-BD92-E53AF34F516F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6810DA6-C1ED-4E2D-BD92-E53AF34F516F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
