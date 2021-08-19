@@ -7,6 +7,23 @@ using System.Threading.Tasks;
 namespace MISA.Core.Entities.ModelDepartment
 {
     public class Department : BaseEntity
-    { 
+    {
+        #region Property 
+        /// <summary>
+        /// Khóa Chính
+        /// </summary>
+        public Guid? DepartmentId { get; set; }
+
+        /// <summary>
+        /// Mã phòng 
+        /// </summary>
+
+        public string DepartmentCode { get; set; }
+
+        /// <summary>
+        /// Tên phòng  
+        /// </summary>
+        public string DepartmentName { get; set; }
+        #endregion
     }
 }

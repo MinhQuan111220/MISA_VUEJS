@@ -9,5 +9,8 @@ namespace MISA.Core.Entities.Interfaces.Services
 {
     public interface IEmployeeService : IBaseService<Employee>
     {
+        #region Method
+
+        #endregion
     }
 }

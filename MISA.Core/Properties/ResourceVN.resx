@@ -120,6 +120,9 @@
   <data name="DevMsg_Erro500" xml:space="preserve">
     <value>Kiểm tra lại code. Hiện đang có lỗi phần backend!</value>
   </data>
+  <data name="Empty" xml:space="preserve">
+    <value>Không để trống !</value>
+  </data>
   <data name="EmptyCustomerCode" xml:space="preserve">
     <value>Mã khách hàng không được để trống !</value>
   </data>

@@ -9,6 +9,8 @@ namespace MISA.Core.Entities.Interfaces.Services
 {
     public interface ICustomerService : IBaseService<Customer>
     {
-       
+        #region Method
+
+        #endregion
     }
 }

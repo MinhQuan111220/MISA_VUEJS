@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MISA.Core.Entities.Interfaces.MISAAttribute;
 
 namespace MISA.Core.Entities.ModelEmployee
 {
@@ -12,11 +13,12 @@ namespace MISA.Core.Entities.ModelEmployee
         /// <summary>
         /// Khóa Chính
         /// </summary>
-        public Guid EmployeeId { get; set; }
+        public Guid? EmployeeId { get; set; }
 
         /// <summary>
         /// Mã nhân viên 
         /// </summary>
+        [MISARequired("Mã Nhân Viên")]
         public String EmployeeCode { get; set; }
 
         /// <summary>
@@ -32,6 +34,7 @@ namespace MISA.Core.Entities.ModelEmployee
         /// <summary>
         /// Họ và tên
         /// </summary>
+        [MISARequired("Họ và tên nhân viên ")]
         public String FullName { get; set; }
 
         /// <summary>
@@ -52,16 +55,19 @@ namespace MISA.Core.Entities.ModelEmployee
         /// <summary>
         /// Email
         /// </summary>
+        [MISARequired("Email")]
         public String Email { get; set; }
 
         /// <summary>
         /// Số điện thoại
         /// </summary>
+        [MISARequired("Số điện thoại")]
         public String PhoneNumber { get; set; }
 
         /// <summary>
         /// Số chứng minh thư
         /// </summary>
+        [MISARequired("Số chứng minh thư")]
         public String IdentityNumber { get; set; }
 
         /// <summary>
@@ -85,14 +91,24 @@ namespace MISA.Core.Entities.ModelEmployee
         public double? WorkStatus { get; set; }
 
         /// <summary>
-        /// Phòng ban 
+        /// ID Phòng ban 
         /// </summary>
         public Guid PositionId { get; set; }
 
         /// <summary>
-        /// Vị trí
+        /// ID Vị trí
         /// </summary>
         public Guid DepartmentId { get; set; }
+
+        //// <summary>
+        ///// Phòng ban 
+        ///// </summary>
+        //public String PositionName { get; set; }
+
+        ///// <summary>
+        ///// Vị trí
+        ///// </summary>
+        //public String DepartmentName { get; set; }
 
         #endregion
     }

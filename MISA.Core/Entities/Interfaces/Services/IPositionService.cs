@@ -9,6 +9,8 @@ namespace MISA.Core.Entities.Interfaces.Services
 {
     public interface IPositionService : IBaseService<Position>
     {
-        
+        #region Method
+
+        #endregion
     }
 }

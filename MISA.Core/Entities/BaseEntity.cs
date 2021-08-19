@@ -8,6 +8,8 @@ namespace MISA.Core.Entities
 {
     public class BaseEntity
     {
+        #region Property
+
         /// <summary>
         /// Thời gian tạo 
         /// </summary>
@@ -27,5 +29,6 @@ namespace MISA.Core.Entities
         /// Người sửa đổi
         /// </summary>
         public String ModifiedBy { get; set; }
+        #endregion
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MISA.Core.Entities.Interfaces.MISAAttribute;
 
 namespace MISA.Core.Entities.ModelCustomer
 {
@@ -12,27 +13,29 @@ namespace MISA.Core.Entities.ModelCustomer
         /// <summary>
         /// Khóa Chính
         /// </summary>
-        public Guid CustomerId { get; set; }
+        public Guid? CustomerId { get; set; }
 
         /// <summary>
         /// Mã Khách hàng
         /// </summary>
-        public String CustomerCode { get; set; }
+        [MISARequired("Mã Khách Hàng ")]
+        public string CustomerCode { get; set; }
 
         /// <summary>
         /// Họ và đệm
         /// </summary>
-        public String FirstName { get; set; }
+        public string FirstName { get; set; }
 
         /// <summary>
         /// Tên
         /// </summary>
-        public String LastName { get; set; }
+        public string LastName { get; set; }
 
         /// <summary>
         /// Họ và tên
         /// </summary>
-        public String FullName { get; set; }
+        [MISARequired("Họ và tên Khách Hàng ")]
+        public string FullName { get; set; }
 
         /// <summary>
         /// Giới tính
@@ -42,7 +45,7 @@ namespace MISA.Core.Entities.ModelCustomer
         /// <summary>
         /// Địa chỉ
         /// </summary>
-        public String Address { get; set; }
+        public string Address { get; set; }
 
         /// <summary>
         /// Ngày sinh
@@ -52,12 +55,18 @@ namespace MISA.Core.Entities.ModelCustomer
         /// <summary>
         /// Email
         /// </summary>
-        public String Email { get; set; }
+        [MISARequired("Email")]
+        public string Email { get; set; }
 
         /// <summary>
         /// Số điện thoại
         /// </summary>
-        public String PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
+
+        /// <summary>
+        /// Tên nhóm khách hàng 
+        /// </summary>
+        public string CustomerGroupName { get; set; }
 
         #endregion
     }

@@ -31,6 +31,14 @@ namespace MISA.CuckCuk.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "https://localhost:44394",
+                                  builder => {
+                                      builder.WithOrigins("http://localhost:8080"
+                                                         );
+                                  });
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -42,15 +50,19 @@ namespace MISA.CuckCuk.Api
                 jsonOptions.JsonSerializerOptions.PropertyNamingPolicy = null;
             });
 
+            //Base DI :
+            services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
+            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             //Services DI:
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IPositionService, PositionService>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
             //Repository DI :
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-            //Base DI :
-            services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
-            services.AddScoped(typeof(IBaseRepository), typeof(BaseRepository));
+            services.AddScoped<IPositionRepository, PositionRepository>();
+            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,6 +81,7 @@ namespace MISA.CuckCuk.Api
 
             app.UseAuthorization();
 
+            app.UseCors("https://localhost:44394");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

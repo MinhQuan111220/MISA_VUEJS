@@ -13,11 +13,13 @@ namespace MISA.Infarstructure.Repository
 {
     public class CustomerRepository : ICustomerRepository
     {
-        
-       
 
-      
 
-       
+
+        #region Method
+
+        #endregion
+
+
     }
 }

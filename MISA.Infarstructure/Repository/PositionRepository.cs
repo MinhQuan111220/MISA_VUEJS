@@ -9,5 +9,8 @@ namespace MISA.Infarstructure.Repository
 {
     public class PositionRepository : IPositionRepository
     {
+        #region Method
+
+        #endregion
     }
 }

@@ -9,7 +9,9 @@ namespace MISA.Core.Entities.Interfaces.Repository
 {
     public interface ICustomerRepository
     {
-        
+        #region Method
+
+        #endregion
 
     }
 }

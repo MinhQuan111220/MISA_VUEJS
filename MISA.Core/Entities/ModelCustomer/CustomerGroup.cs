@@ -12,7 +12,7 @@ namespace MISA.Core.Entities.ModelCustomer
         /// <summary>
         /// Khóa Chính
         /// </summary>
-        public Guid CustomerGroupId { get; set; }
+        public Guid? CustomerGroupId { get; set; }
 
         /// <summary>
         /// Tên nhóm khách hàng

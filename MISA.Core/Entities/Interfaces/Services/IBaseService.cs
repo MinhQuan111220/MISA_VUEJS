@@ -8,6 +8,8 @@ namespace MISA.Core.Entities.Interfaces.Services
 {
     public interface IBaseService<MISAEntity>
     {
+        #region Method 
+
         /// <summary>
         /// Thêm mới 
         /// </summary>
@@ -23,6 +25,7 @@ namespace MISA.Core.Entities.Interfaces.Services
         /// <param name="entityId">Id </param>
         /// <returns>ServiceResult Kết quả xử lý nghiệp vụ</returns>
         /// CreatBy : PVM.Quan (13/08/2021)
-        ServiceResult Update(MISAEntity entity, Guid entityId);
+        ServiceResult Update(MISAEntity entity, Guid? entityId);
+        #endregion
     }
 }

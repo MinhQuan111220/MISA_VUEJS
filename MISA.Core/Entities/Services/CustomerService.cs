@@ -10,20 +10,26 @@ using System.Text.RegularExpressions;
 using System.Data;
 using MySqlConnector;
 using Dapper;
+using Microsoft.Extensions.Configuration;
 
 namespace MISA.Core.Entities.Services
 {
     public class CustomerService : BaseService<Customer>, ICustomerService
     {
 
+        #region DECLARE
 
-        ServiceResult _serviceResult;
+        
+        #endregion
 
-        public CustomerService(IBaseRepository baseRepository):base(baseRepository)
+        #region Constructor
+
+        public CustomerService(IBaseRepository<Customer> baseRepository, IConfiguration configuration) :base(baseRepository,configuration)
 
         {
-            _serviceResult = new ServiceResult();
+           
         }
+        #endregion
 
         
     }

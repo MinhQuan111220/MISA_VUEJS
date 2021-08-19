@@ -8,5 +8,8 @@ namespace MISA.Core.Entities.Interfaces.Repository
 {
     public interface IDepartmentRepository
     {
+        #region Method 
+
+        #endregion
     }
 }

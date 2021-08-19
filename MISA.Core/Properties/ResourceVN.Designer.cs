@@ -70,6 +70,15 @@ namespace MISA.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Không để trống !.
+        /// </summary>
+        internal static string Empty {
+            get {
+                return ResourceManager.GetString("Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mã khách hàng không được để trống !.
         /// </summary>
         internal static string EmptyCustomerCode {

@@ -17,33 +17,44 @@ namespace MISA.CuckCuk.Api.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class EmployeesController : ControllerBase
+    public class EmployeesController : BaseEntityController<Employee>
     {
+        #region DECLARE
+
         IEmployeeService _employeeService;
         IEmployeeRepository _employeeRepository;
-        IBaseRepository _baseRepository;
+        IBaseRepository<Employee> _baseRepository;
+        IBaseService<Employee> _baseService;
+        #endregion
 
-
-        public EmployeesController(IEmployeeService employeeService, IEmployeeRepository employeeRepository, IBaseRepository baseRepository)
+        #region Constructor
+        public EmployeesController(IEmployeeService employeeService, IEmployeeRepository employeeRepository, IBaseRepository<Employee> baseRepository, IBaseService<Employee> baseService) : base(employeeService, baseRepository)
         {
             _employeeService = employeeService;
             _employeeRepository = employeeRepository;
             _baseRepository = baseRepository;
+            _baseService = baseService;
         }
+        #endregion
+
+        #region Method
+
         /// <summary>
-        /// Lấy thông tin tất cả nhân viên
+        /// Lấy danh sách nhân viên 
         /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public IActionResult GetEmployees([FromQuery] string PositionId, [FromQuery] string DepartmentId)
+        /// <param name="PositionId">Vị tí </param>
+        /// <param name="DepartmentId"> Phòng ban</param>
+        /// <returns>Danh sach nhân viên </returns>
+
+        public override IActionResult Get([FromQuery] string PositionId, [FromQuery] string DepartmentId)
         {
             try
             {
-                var employees = _baseRepository.GetAll<Employee>();
+                var employees = _baseRepository.GetAll();
 
-                if (PositionId == ""|| PositionId == null && DepartmentId == null || DepartmentId == "")
+                if (PositionId == "" || PositionId == null && DepartmentId == null || DepartmentId == "")
                 {
-                    employees = _baseRepository.GetAll<Employee>();
+                    employees = _baseRepository.GetAll();
                 }
                 else
                 {
@@ -60,7 +71,7 @@ namespace MISA.CuckCuk.Api.Controllers
                 {
                     return StatusCode(204, employees);
                 }
-                
+
 
             }
             catch (Exception ex)
@@ -74,147 +85,16 @@ namespace MISA.CuckCuk.Api.Controllers
                 return StatusCode(500, erroObject);
             }
         }
-        /// <summary>
-        /// Lấy thông tin nhân viên theo Id
-        /// </summary>
-        /// <param name="employeeId"></param>
-        /// <returns></returns>
-        [HttpGet("{employeeId}")]
-        public IActionResult GetById(Guid employeeId)
-        {
 
-            // Lấy thông tin theo id
-            try
-            {
-                var employee = _baseRepository.GetById<Employee>(employeeId);
-                // 4. Tra ve cho client
-                if (employee != null)
-                {
-                    return StatusCode(200, employee);
-
-                }
-                else
-                {
-                    var erroObject = new
-                    {
-                        userMsg = Properties.Resources.UserMsg_Erro400,
-                        erorrCode = "misa-001",
-                    };
-                    return StatusCode(400, erroObject);
-                }
-            }
-            catch (Exception ex)
-            {
-                var erroObject = new
-                {
-                    devMsg = ex.Message,
-                    userMsg = Properties.Resources.Erro500,
-                    erorrCode = "misa-001",
-                };
-                return StatusCode(500, erroObject);
-            }
-        }
-        /// <summary>
-        /// Thêm mới một nhân viên
-        /// </summary>
-        /// <param name="employee"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public IActionResult Insertemployee(Employee employee)
-        {
-
-            //Bắt đầu thêm mới
-            try
-            {
-
-                var serviceResult = _employeeService.Add(employee);
-                // 4. Tra ve cho client
-                if (serviceResult.isValid == true)
-                {
-                    return StatusCode(201, serviceResult.Data);
-
-                }
-                else
-                {
-                    return BadRequest(serviceResult.Data);
-                }
-            }
-            catch (Exception ex)
-            {
-                var erroObject = new
-                {
-                    devMsg = ex.Message,
-                    userMsg = Properties.Resources.Erro500,
-                    erorrCode = "misa-001",
-                };
-                return StatusCode(500, erroObject);
-            }
-        }
-
-        /// <summary>
-        /// Sửa dữ liệu cho một nhân viên
-        /// </summary>
-        /// <param name="employeeId"></param>
-        /// <param name="employee"></param>
-        /// <returns></returns>
-        [HttpPut("{employeeId}")]
-        public IActionResult Updateemployee(Employee employee, Guid employeeId)
-        {
-
-            try
-            {
-
-                var serviceResult = _employeeService.Update(employee, employeeId);
-                // 4. Tra ve cho client
-                if (serviceResult.isValid == true)
-                {
-                    return StatusCode(200, serviceResult.Data);
-
-                }
-                else
-                {
-                    return BadRequest(serviceResult.Data);
-                }
-            }
-            catch (Exception ex)
-            {
-                var erroObject = new
-                {
-                    devMsg = ex.Message,
-                    userMsg = Properties.Resources.Erro500,
-                    erorrCode = "misa-001",
-                };
-                return StatusCode(500, erroObject);
-            }
-        }
-
-        /// <summary>
-        /// Xóa thông tin nhân viên theo 
-        /// </summary>
-        /// <param name="employeeId"></param>
-        /// <returns></returns>
-        [HttpDelete("{employeeId}")]
-        public IActionResult Deleteemployee(Guid employeeId)
+        [HttpGet("filter")]
+        public IActionResult GetEmployeesFilterPaging([FromQuery] string EmployeeFilter, [FromQuery] Guid? DepartmentId, [FromQuery] Guid? PositionId, [FromQuery]  Int32 pageIndex, [FromQuery]  Int32 pageSize)
         {
             try
             {
-                var employee = _baseRepository.Delete<Employee>(employeeId);
-                // 4. Tra ve cho client 
-                if (employee == 1)
-                {
-                    return StatusCode(200, employee);
+                var employees = _employeeRepository.GetEmployeesFilterPaging(EmployeeFilter, DepartmentId, PositionId, pageIndex, pageSize);
 
-                }
-                else
-                {
-                    var erroObject = new
-                    {
-                        userMsg = Properties.Resources.UserMsg_Erro400,
-                        erorrCode = "misa-001",
-                    };
-                    return StatusCode(400, erroObject);
-                }
-
+                var response = StatusCode(200, employees);
+                return response;
             }
             catch (Exception ex)
             {
@@ -227,6 +107,8 @@ namespace MISA.CuckCuk.Api.Controllers
                 return StatusCode(500, erroObject);
             }
         }
+        #endregion
+       
     }
 
 }
