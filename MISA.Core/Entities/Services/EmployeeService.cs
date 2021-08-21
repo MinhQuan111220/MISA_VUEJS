@@ -14,16 +14,16 @@ namespace MISA.Core.Entities.Services
     public class EmployeeService : BaseService<Employee>, IEmployeeService
     {
         #region DECLARE
-
+        IEmployeeRepository _employeeRepository;
        
         #endregion
 
         #region Constructor
 
-        public EmployeeService(IBaseRepository<Employee> baseRepository, IConfiguration configuration) : base(baseRepository,  configuration)
+        public EmployeeService(IBaseRepository<Employee> baseRepository, IConfiguration configuration, IEmployeeRepository employeeRepository) : base(baseRepository,  configuration)
 
         {
-            
+            _employeeRepository = employeeRepository;
             
         }
         #endregion
@@ -45,6 +45,12 @@ namespace MISA.Core.Entities.Services
                 _serviceResult.Messenger = Properties.ResourceVN.FormatEmail;
                  return false;
                 
+            }
+            // 2. Trùng chứng minh thư 
+            if (_employeeRepository.checkDuplicateIdentityNumber(entity.IdentityNumber) == false)
+            {
+                _serviceResult.Messenger = Properties.ResourceVN.MathIdentityNumber;
+                return false;
             }
             //// 2 . Sai định dạng tiền 
             //var monney =  Regex.IsMatch(employee.Salary, @"^\-?\(?\$?\s*\-?\s*\(?(((\d{1,3}((\,\d{3})*|\d*))?(\.\d{1,4})?)|((\d{1,3}((\,\d{3})*|\d*))(\.\d{0,4})?))\)?$");

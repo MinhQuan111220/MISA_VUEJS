@@ -19,6 +19,7 @@ namespace MISA.Infarstructure.Repository
         // 1. Khai báo thông tin kết nối với database
         public readonly string connectionString;
 
+        #endregion
         #region Constructor
         public EmployeeRepository(IConfiguration configuration)
         {
@@ -26,45 +27,22 @@ namespace MISA.Infarstructure.Repository
             connectionString = configuration.GetConnectionString("CukCukDataBase");
 
         }
-        #endregion
+
+        
         #endregion
         #region Method
+
         /// <summary>
-        /// Lấy danh sách nhân viên 
+        /// Phân trang 
         /// </summary>
-        /// <param name="PositionId">Vị tí </param>
-        /// <param name="DepartmentId"> Phòng ban</param>
-        /// <returns>Danh sach nhân viên </returns>
-        public List<Employee> GetDeAndPo(string PositionId, string DepartmentId)
-        {
-            
-            // Truy cập vào database 
-            
-            // 2. Khởi tạo đối tượng kết nối với database
-            IDbConnection dbConnection = new MySqlConnection(connectionString);
-
-            // 3. Lấy dữ liệu 
-            var sqlCommand = "";
-            if (PositionId != null && DepartmentId != null)
-            {
-                 sqlCommand += $"SELECT * FROM Employee WHERE (PositionId =  @PositionIdParam AND DepartmentId = @DepartmentIdParam ) ";
-
-            }
-            else
-            {
-
-                sqlCommand += $"SELECT * FROM Employee WHERE  (PositionId = @PositionIdParam ) OR(DepartmentId = @DepartmentIdParam ) ";
-            }
-
-            DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@PositionIdParam", PositionId);
-            parameters.Add("@DepartmentIdParam", DepartmentId);
-            var entities = dbConnection.Query<Employee>(sqlCommand, param: parameters);
-            return (List<Employee>)entities;
-
-        }
-
-        public List<Employee> GetEmployeesFilterPaging(String EmployeeFilter, Guid? DepartmentId, Guid? PositionId, Int32 pageIndex, Int32 pageSize)
+        /// <param name="EmployeeFilter"></param>
+        /// <param name="DepartmentId"></param>
+        /// <param name="PostitionId"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="totalPage"></param>
+        /// <returns>Mảng chứa thông tin</returns>
+        /// creatBy : PVM Quân(19/08/2021)
+        public object GetEmployeesFilterPaging(String EmployeeFilter, Guid? DepartmentId, Guid? PositionId, Int32 pageIndex, Int32 pageSize)
         {
             // 2.Khởi tạo đối tượng kết nối với database
             IDbConnection dbConnection = new MySqlConnection(connectionString);
@@ -81,8 +59,43 @@ namespace MISA.Infarstructure.Repository
 
             var data = dbConnection.Query<Employee>($"Proc_GetEmployeesFilterPaging", param: parameters, commandType: CommandType.StoredProcedure);
 
+            var totalPage = parameters.Get<Int32>("@TotalPage");
+            var totalRecord = parameters.Get<Int32>("@TotalRecord");
 
-            return (List<Employee>)data;
+            var pagingData = new
+            {
+                totalPage,
+                totalRecord,
+                data
+            };
+
+            return pagingData;
+        }
+        #endregion
+
+        #region validate
+        /// <summary>
+        /// Kiểm tra chứng minh thư bị trùng 
+        /// </summary>
+        /// <param name="IdentityNumber">Id khách hàng</param>
+        /// <returns>ServiceResult Kết quả xử lý nghiệp vụ</returns> 
+        /// CreatBy : PVM.Quan (18/08/2021)
+        public Boolean checkDuplicateIdentityNumber(String IdentityNumber)
+        {
+            // 2. Khởi tạo đối tượng kết nối với database
+            using (IDbConnection dbConnection = new MySqlConnection(connectionString))
+            {
+                // 3. Lấy dữ liệu 
+                string sqlCommand = $"SELECT * FROM Employee WHERE IdentityNumber = @IdentityNumberParam";
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@IdentityNumberParam", IdentityNumber);
+                var res = dbConnection.QueryFirstOrDefault(sqlCommand, param: parameters);
+                if (res != null)
+                {
+                    return false;
+                }
+                return true;
+            }
         }
         #endregion
     }

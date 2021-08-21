@@ -10,14 +10,7 @@ namespace MISA.Core.Entities.Interfaces.Repository
     public interface IEmployeeRepository
     {
         #region Method 
-        /// <summary>
-        /// Lấy danh sách nhân viên 
-        /// </summary>
-        /// <param name="PositionId">Vị tí </param>
-        /// <param name="DepartmentId"> Phòng ban</param>
-        /// <returns>Danh sach nhân viên </returns>
-        List<Employee> GetDeAndPo(string PositionId, string DepartmentId);
-
+       
         /// <summary>
         /// Phân trang 
         /// </summary>
@@ -26,9 +19,19 @@ namespace MISA.Core.Entities.Interfaces.Repository
         /// <param name="PostitionId"></param>
         /// <param name="pageIndex"></param>
         /// <param name="totalPage"></param>
-        /// <returns></returns>
-        List<Employee> GetEmployeesFilterPaging(string EmployeeFilter, Guid? DepartmentId, Guid? PositionId, int pageIndex, int pageSize);
+        /// <returns>Mảng chứa thông tin</returns>
+        /// creatBy : PVM Quân(19/08/2021)
+        object GetEmployeesFilterPaging(string EmployeeFilter, Guid? DepartmentId, Guid? PositionId, int pageIndex, int pageSize);
         #endregion
 
+        #region validate
+        /// <summary>
+        /// Kiểm tra chứng minh thư bị trùng 
+        /// </summary>
+        /// <param name="IdentityNumber">Id khách hàng</param>
+        /// <returns>ServiceResult Kết quả xử lý nghiệp vụ</returns> 
+        /// CreatBy : PVM.Quan (18/08/2021)
+        public bool checkDuplicateIdentityNumber(string IdentityNumber);
+        #endregion
     }
 }

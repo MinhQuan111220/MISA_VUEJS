@@ -68,6 +68,30 @@ namespace MISA.Core.Entities.ModelCustomer
         /// </summary>
         public string CustomerGroupName { get; set; }
 
+        /// <summary>
+        /// Mã Id nhóm khách hàng 
+        /// </summary>
+        public Guid? CustomerGroupId { get; set; }
+
+        /// <summary>
+        /// Mã thẻ thành viên 
+        /// </summary>
+        public string MemberCardCode { get; set; }
+
+        /// <summary>
+        /// Tên công ty 
+        /// </summary>
+        public string CompanyName { get; set; }
+
+        /// <summary>
+        /// Mã số thuế 
+        /// </summary>
+        public string TaxCode   { get; set; }
+
+        /// <summary>
+        /// Mảng chứa những lỗi sai khi import từ file 
+        /// </summary>
+        public List<string> ImportError { get; set; } = new List<string>();
         #endregion
     }
 }

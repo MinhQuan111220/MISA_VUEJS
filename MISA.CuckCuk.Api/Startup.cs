@@ -31,14 +31,12 @@ namespace MISA.CuckCuk.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options =>
+            services.AddCors(o => o.AddPolicy("myPolicy", builder =>
             {
-                options.AddPolicy(name: "https://localhost:44394",
-                                  builder => {
-                                      builder.WithOrigins("http://localhost:8080"
-                                                         );
-                                  });
-            });
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -81,7 +79,8 @@ namespace MISA.CuckCuk.Api
 
             app.UseAuthorization();
 
-            app.UseCors("https://localhost:44394");
+            
+            app.UseCors("myPolicy");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

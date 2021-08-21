@@ -19,33 +19,35 @@ namespace MISA.Core.Entities.ModelEmployee
         /// Mã nhân viên 
         /// </summary>
         [MISARequired("Mã Nhân Viên")]
-        public String EmployeeCode { get; set; }
+        public string EmployeeCode { get; set; }
 
         /// <summary>
         /// Họ và đệm
         /// </summary>
-        public String FirstName { get; set; }
+        public string FirstName { get; set; }
 
         /// <summary>
         /// Tên
         /// </summary>
-        public String LastName { get; set; }
+        public string LastName { get; set; }
 
         /// <summary>
         /// Họ và tên
         /// </summary>
         [MISARequired("Họ và tên nhân viên ")]
-        public String FullName { get; set; }
+        public string FullName { get; set; }
 
         /// <summary>
         /// Giới tính
         /// </summary>
         public int? Gender { get; set; }
 
+        
+
         /// <summary>
         /// Địa chỉ
         /// </summary>
-        public String Address { get; set; }
+        public string Address { get; set; }
 
         /// <summary>
         /// Ngày sinh
@@ -56,19 +58,19 @@ namespace MISA.Core.Entities.ModelEmployee
         /// Email
         /// </summary>
         [MISARequired("Email")]
-        public String Email { get; set; }
+        public string Email { get; set; }
 
         /// <summary>
         /// Số điện thoại
         /// </summary>
         [MISARequired("Số điện thoại")]
-        public String PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
         /// <summary>
         /// Số chứng minh thư
         /// </summary>
         [MISARequired("Số chứng minh thư")]
-        public String IdentityNumber { get; set; }
+        public string IdentityNumber { get; set; }
 
         /// <summary>
         /// Ngày tạo chứng minh thư
@@ -78,7 +80,7 @@ namespace MISA.Core.Entities.ModelEmployee
         /// <summary>
         /// Nơi tạo cmt
         /// </summary>
-        public String IdentityPlace { get; set; }
+        public string IdentityPlace { get; set; }
 
         /// <summary>
         /// Tiền lương
@@ -91,24 +93,24 @@ namespace MISA.Core.Entities.ModelEmployee
         public double? WorkStatus { get; set; }
 
         /// <summary>
-        /// ID Phòng ban 
+        /// ID Phòng ban  
         /// </summary>
-        public Guid PositionId { get; set; }
+        public Guid? PositionId { get; set; }
 
         /// <summary>
         /// ID Vị trí
         /// </summary>
-        public Guid DepartmentId { get; set; }
+        public Guid? DepartmentId { get; set; }
 
-        //// <summary>
-        ///// Phòng ban 
-        ///// </summary>
-        //public String PositionName { get; set; }
+        // <summary>
+        /// Phòng ban 
+        /// </summary>
+        public string PositionName { get; set; }
 
-        ///// <summary>
-        ///// Vị trí
-        ///// </summary>
-        //public String DepartmentName { get; set; }
+        /// <summary>
+        /// Vị trí
+        /// </summary>
+        public string DepartmentName { get; set; }
 
         #endregion
     }

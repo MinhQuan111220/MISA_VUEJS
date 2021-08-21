@@ -19,7 +19,7 @@ namespace MISA.CuckCuk.Api.Controllers
 
         static string classNameId;
         #region Constructor
-        public BaseEntityController(IBaseService<MISAEntity> baseService, IBaseRepository<MISAEntity> baseRepository )
+        public BaseEntityController(IBaseService<MISAEntity> baseService, IBaseRepository<MISAEntity> baseRepository)
         {
             _baseService = baseService;
             _baseRepository = baseRepository;
@@ -35,7 +35,7 @@ namespace MISA.CuckCuk.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public virtual IActionResult Get([FromQuery] string value1,[FromQuery] string value2)
+        public virtual IActionResult Get([FromQuery] string value1, [FromQuery] string value2)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace MISA.CuckCuk.Api.Controllers
                     return StatusCode(204, entites);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 var erroObject = new
                 {
@@ -61,7 +61,7 @@ namespace MISA.CuckCuk.Api.Controllers
                 };
                 return StatusCode(500, erroObject);
             }
-        }
+            }
         /// <summary>
         /// Lấy thông tin  theo Id
         /// </summary>
@@ -103,7 +103,7 @@ namespace MISA.CuckCuk.Api.Controllers
         /// <param name="entity"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Insertentity(MISAEntity entity)
+        public IActionResult Insert(MISAEntity entity)
         {
 
             //Bắt đầu thêm mới
@@ -114,7 +114,7 @@ namespace MISA.CuckCuk.Api.Controllers
                 // 4. Tra ve cho client
                 if (serviceResult.isValid == true)
                 {
-                    if ( serviceResult.Data!=null)
+                    if (serviceResult.Data != null)
                     {
                         return StatusCode(201, serviceResult.Data);
                     }
@@ -154,7 +154,7 @@ namespace MISA.CuckCuk.Api.Controllers
         /// <param name="entity"></param>
         /// <returns></returns>
         [HttpPut("{entityId}")]
-        public IActionResult Updateentity(MISAEntity entity, Guid? entityId)
+        public IActionResult Update(MISAEntity entity, Guid? entityId)
         {
 
             try
@@ -190,7 +190,7 @@ namespace MISA.CuckCuk.Api.Controllers
         /// <param name="entityId"></param>
         /// <returns></returns>
         [HttpDelete("{entityId}")]
-        public IActionResult Deleteentity(Guid? entityId)
+        public IActionResult Delete(Guid? entityId)
         {
             try
             {
@@ -223,7 +223,38 @@ namespace MISA.CuckCuk.Api.Controllers
                 return StatusCode(500, erroObject);
             }
         }
+        /// <summary>
+        /// Lấy mã mới 
+        /// </summary>
+        /// <returns>ServiceResult Kết quả xử lý nghiệp vụ</returns> 
+        /// CreatBy : PVM.Quan (19/08/2021)
+        [HttpGet("NewCode")]
+        public IActionResult GetNewCode()
+        {
+            try
+            {
+                var newCode = _baseRepository.GetNewCode();
+                    return StatusCode(200, newCode);
+                //if (newCode.ToString() != string.Empty)
+                //{
 
+                //}
+                //else
+                //{
+                //    return BadRequest(newCode);
+                //}
+            }
+            catch (Exception ex)
+            {
+                var erroObject = new
+                {
+                    devMsg = ex.Message,
+                    userMsg = Properties.Resources.Erro500,
+                    erorrCode = "misa-001",
+                };
+                return StatusCode(500, erroObject);
+            }
+        }
         #endregion
     }
     #endregion

@@ -8,6 +8,8 @@ using Dapper;
 using Microsoft.Extensions.Configuration;
 using MISA.Core.Entities.Interfaces.Repository;
 using MySqlConnector;
+using NPOI.SS.Formula.Functions;
+using System.Net.Http.Json;
 
 namespace MISA.Infarstructure.Repository
 {
@@ -32,6 +34,12 @@ namespace MISA.Infarstructure.Repository
 
         #region Method
 
+        /// <summary>
+        /// Thêm mới 
+        /// </summary>
+        /// <param name="entity">Thông tin </param>
+        /// <returns>ServiceResult Kết quả xử lý nghiệp vụ</returns>
+        /// CreatBy : PVM.Quan (13/08/2021)
         public Int32 Add(MISAEntity entity)
         {
            
@@ -81,8 +89,13 @@ namespace MISA.Infarstructure.Repository
 
         }
 
-        
 
+        /// <summary>
+        /// Xóa  theo Id
+        /// </summary>
+        /// <param name="entityId">Id khách hàng</param>
+        /// <returns>ServiceResult Kết quả xử lý nghiệp vụ</returns>
+        /// CreatBy : PVM.Quan (13/08/2021)
         public Int32 Delete(Guid? entityId)
         {
             
@@ -102,6 +115,11 @@ namespace MISA.Infarstructure.Repository
             }
         }
 
+        /// <summary>
+        /// Lấy toàn bộ dữ liệu
+        /// </summary>
+        /// <returns>ServiceResult Kết quả xử lý nghiệp vụ</returns>
+        /// CreatBy : PVM.Quan (13/08/2021)
         public List <MISAEntity> GetAll()
         {
             
@@ -110,14 +128,18 @@ namespace MISA.Infarstructure.Repository
             // 2. Khởi tạo đối tượng kết nối với database
             using (IDbConnection dbConnection = new MySqlConnection(connectionString))
             {
-                // 3. Lấy dữ liệu 
-                var sqlCommand = $"SELECT * FROM {className}";
-                var entities = dbConnection.Query<MISAEntity>(sqlCommand);
-                return (List<MISAEntity>)entities;
+                // 3. Lấy dữ liệu
+                var entities = dbConnection.Query<MISAEntity>($"Proc_Get{className}s", commandType: CommandType.StoredProcedure);
+                return (List<MISAEntity>)entities; 
             }
         }
 
-
+        /// <summary>
+        /// Lấy dữ liệu khách  Id
+        /// </summary>
+        /// <param name="entityId">Id khách hàng</param>
+        /// <returns>ServiceResult Kết quả xử lý nghiệp vụ</returns> 
+        /// CreatBy : PVM.Quan (13/08/2021)
         public Object GetById(Guid? entityId)
         {
            
@@ -137,6 +159,13 @@ namespace MISA.Infarstructure.Repository
 
         }
 
+        /// <summary>
+        /// Cập nhật thông tin theo Id
+        /// </summary>
+        /// <param name="entity">Thông tin </param>
+        /// <param name="entityId">Id </param>
+        /// <returns>ServiceResult Kết quả xử lý nghiệp vụ</returns>
+        /// CreatBy : PVM.Quan (13/08/2021)
         public Int32 Update(MISAEntity entity, Guid? entityId)
         {
             
@@ -209,6 +238,34 @@ namespace MISA.Infarstructure.Repository
                     return false;
                 }
                 return true;
+            }
+        }
+
+        /// <summary>
+        /// Lấy mã mới 
+        /// </summary>
+        /// <returns>ServiceResult Kết quả xử lý nghiệp vụ</returns> 
+        /// CreatBy : PVM.Quan (19/08/2021)
+        public object GetNewCode()
+        {
+            // 2. Khởi tạo đối tượng kết nối với database
+            using (IDbConnection dbConnection = new MySqlConnection(connectionString))
+            {
+                // 3. Lấy dữ liệu 
+                var entityCode = $"{className}Code";
+                var data = dbConnection.QueryFirstOrDefault($"Proc_GetNew{className}Code", commandType: CommandType.StoredProcedure);
+                //var Code = data.entityCode;
+                //var newCode = "";
+                //var number = 0;
+                //for(var i = 3; i < Code.length; i++)
+                //{
+                //    number = number * 10 + Code[i];
+                //}
+                //for(var i = 0; i < 3; i++)
+                //{
+                //    newCode += Code[i];
+                //}
+                return data;
             }
         }
         #endregion

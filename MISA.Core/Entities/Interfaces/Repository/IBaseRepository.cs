@@ -50,6 +50,13 @@ namespace MISA.Core.Entities.Interfaces.Repository
         /// CreatBy : PVM.Quan (13/08/2021)
         Object GetById(Guid? entityId);
 
+        /// <summary>
+        /// Lấy mã mới 
+        /// </summary>
+        /// <returns>ServiceResult Kết quả xử lý nghiệp vụ</returns> 
+        /// CreatBy : PVM.Quan (19/08/2021)
+        object GetNewCode();
+
 
         #endregion
 

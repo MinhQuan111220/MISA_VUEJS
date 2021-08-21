@@ -40,52 +40,15 @@ namespace MISA.CuckCuk.Api.Controllers
         #region Method
 
         /// <summary>
-        /// Lấy danh sách nhân viên 
+        /// Phân trang 
         /// </summary>
-        /// <param name="PositionId">Vị tí </param>
-        /// <param name="DepartmentId"> Phòng ban</param>
-        /// <returns>Danh sach nhân viên </returns>
-
-        public override IActionResult Get([FromQuery] string PositionId, [FromQuery] string DepartmentId)
-        {
-            try
-            {
-                var employees = _baseRepository.GetAll();
-
-                if (PositionId == "" || PositionId == null && DepartmentId == null || DepartmentId == "")
-                {
-                    employees = _baseRepository.GetAll();
-                }
-                else
-                {
-                    employees = _employeeRepository.GetDeAndPo(PositionId, DepartmentId);
-
-                }
-                // 4. Trả về cho client
-                if (employees != null)
-                {
-                    var response = StatusCode(200, employees);
-                    return response;
-                }
-                else
-                {
-                    return StatusCode(204, employees);
-                }
-
-
-            }
-            catch (Exception ex)
-            {
-                var erroObject = new
-                {
-                    devMsg = ex.Message,
-                    userMsg = Properties.Resources.Erro500,
-                    erorrCode = "misa-001",
-                };
-                return StatusCode(500, erroObject);
-            }
-        }
-
+        /// <param name="EmployeeFilter"></param>
+        /// <param name="DepartmentId"></param>
+        /// <param name="PostitionId"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="totalPage"></param>
+        /// <returns>Mảng chứa thông tin</returns>
+        /// creatBy : PVM Quân(19/08/2021)
         [HttpGet("filter")]
         public IActionResult GetEmployeesFilterPaging([FromQuery] string EmployeeFilter, [FromQuery] Guid? DepartmentId, [FromQuery] Guid? PositionId, [FromQuery]  Int32 pageIndex, [FromQuery]  Int32 pageSize)
         {

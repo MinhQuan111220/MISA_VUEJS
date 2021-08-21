@@ -70,6 +70,15 @@ namespace MISA.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File gửi lên rỗng !.
+        /// </summary>
+        internal static string DevNullFile {
+            get {
+                return ResourceManager.GetString("DevNullFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Không để trống !.
         /// </summary>
         internal static string Empty {
@@ -142,6 +151,15 @@ namespace MISA.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chứng minh thư đã tồn tại !.
+        /// </summary>
+        internal static string MathIdentityNumber {
+            get {
+                return ResourceManager.GetString("MathIdentityNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dữ liệu bạn gửi lên không hợp lệ. Vui lòng thử lại !.
         /// </summary>
         internal static string UserMsg_Erro400 {
@@ -174,6 +192,15 @@ namespace MISA.Core.Properties {
         internal static string UserMsg_Erro404 {
             get {
                 return ResourceManager.GetString("UserMsg_Erro404", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vui lòng chọn tệp nhập liệu !.
+        /// </summary>
+        internal static string UserNullFile {
+            get {
+                return ResourceManager.GetString("UserNullFile", resourceCulture);
             }
         }
     }

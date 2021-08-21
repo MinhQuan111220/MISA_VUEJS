@@ -120,6 +120,9 @@
   <data name="DevMsg_Erro500" xml:space="preserve">
     <value>Kiểm tra lại code. Hiện đang có lỗi phần backend!</value>
   </data>
+  <data name="DevNullFile" xml:space="preserve">
+    <value>File gửi lên rỗng !</value>
+  </data>
   <data name="Empty" xml:space="preserve">
     <value>Không để trống !</value>
   </data>
@@ -144,6 +147,9 @@
   <data name="MatchCode" xml:space="preserve">
     <value>Mã này đã tồn tại. Bạn vui lòng chọn mã khác !</value>
   </data>
+  <data name="MathIdentityNumber" xml:space="preserve">
+    <value>Chứng minh thư đã tồn tại !</value>
+  </data>
   <data name="UserMsg_Erro400" xml:space="preserve">
     <value>Dữ liệu bạn gửi lên không hợp lệ. Vui lòng thử lại !</value>
   </data>
@@ -155,5 +161,8 @@
   </data>
   <data name="UserMsg_Erro404" xml:space="preserve">
     <value>Máy chủ không tìm thấy dữ liệu tương ứng với dữ liệu bạn gửi lên!</value>
+  </data>
+  <data name="UserNullFile" xml:space="preserve">
+    <value>Vui lòng chọn tệp nhập liệu !</value>
   </data>
 </root>

@@ -132,18 +132,7 @@ namespace MISA.Core.Entities.Services
                     _serviceResult.Data = erroObject;
                     _serviceResult.isValid = isValid;
                 }
-                // 2. Trùng mã 
-                if (check == 2)
-                {
-                    var erroObject = new
-                    {
-
-                        userMsg = Properties.ResourceVN.MatchCode,
-                        erorrCode = "misa-001",
-                    };
-                    _serviceResult.Data = erroObject;
-                    _serviceResult.isValid = isValid;
-                }
+                
             }
             else
             {

@@ -39,7 +39,32 @@ namespace MISA.CuckCuk.Api.Controllers
         #endregion
 
         #region Method
-
+            [HttpPost("Import")]
+            public IActionResult Import(IFormFile formFile)
+        {
+            try
+            {
+                var serviceResult = _customerService.Import(formFile);
+                if(serviceResult.isValid == true)
+                {
+                    return StatusCode(200, serviceResult.Data);
+                }
+                else
+                {
+                    return StatusCode(500, serviceResult.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                var erroObject = new
+                {
+                    devMsg = ex.Message,
+                    userMsg = Properties.Resources.Erro500,
+                    erorrCode = "misa-001",
+                };
+                return StatusCode(500, erroObject);
+            }
+        }
         #endregion
 
 
