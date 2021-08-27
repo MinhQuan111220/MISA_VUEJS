@@ -1,7 +1,7 @@
 /*  */
 .button:hover,
 .button__down:hover{
-    background-color: #2FBE8E;
+    background-color: var(--hover-color);
 }
 .button__icon-left{
     width: 20px;
@@ -15,8 +15,8 @@
     padding : 0 12px;
     height: 40px;
     line-height: 40px;
-    background-color: #019160;
-    color: #ffffff;
+    background-color: var(--default);
+    color: var(--while-color);
     border-bottom-right-radius: 4px;
     border-top-right-radius: 4px;
     font-size: 13px;
@@ -25,7 +25,7 @@
 }
 .div-btn{
     display: flex;
-    background-color: #E5E5E5;
+    background-color: var(--light-gray);
     height: 60px;
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
@@ -37,12 +37,12 @@
     display: flex;
     align-items: center;
     padding: 0 16px;
-    background-color: #019160;
+    background-color: var(--default);
     border-radius: 4px;
-    border: 1px solid #2FBE8E;
+    border: 1px solid var(--hover-color);
     height: 40px;
     min-width: 100px;
-    color: #ffffff;
+    color: var(--while-color);
     font-size: 13px;
     font-family: GoogleSans-Regular;
     margin-left: 10px;
@@ -62,11 +62,11 @@
 }
 .button-save,
 .button-submit{
-    background-color: #019160;
+    background-color: var(--default);
 }
 .button.button-delete{
-    background-color: #F65454;
-    border: 1px solid #F65454;
+    background-color: var(--red-color);
+    border: 1px solid var(--red-color);
     margin-right: 0;
 }
 .button.button-delete:hover,
@@ -78,22 +78,22 @@
     display: none;
 }
 .button.button-deletepopup{
-    background-color: #F65454;
-    border: 1px solid #F65454;
+    background-color: var(--red-color);
+    border: 1px solid var(--red-color);
 }
 
 .button-save:hover{
-    background-color: #2FBE8E;
+    background-color: var(--hover-color);
 }
 .button.button-cancel{
-    background-color: #E5E5E5;;
+    background-color: var(--light-gray);;
     border-radius: 4px;
-    color: #000000;
+    color: var(--back-color);
     border: 0;
     margin: 0 0 0 16px;
 }
 .button-cancel:hover{
-    background-color: #E9EBEE;
+    background-color: var(--white-gray);
 }
 
 .button .button-text{

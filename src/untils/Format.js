@@ -104,6 +104,60 @@ class Format{
             return result.split("").reverse().join("");
         } else return '';
     }
+
+    /**
+     * Hàm định dạng trang thái công việc
+     * creatBy : PVM.Quân(29/07/2021)
+     */
+    workStatusFormat(value){
+        if(value == 1){
+            return 'Đang làm việc' 
+        }else if(value == 0){
+            return 'Đã nghỉ việc'
+        }else{
+            return ''
+        }
+    }
+
+    /**
+     * Hàm kiểm tra tồn tại trong mảng
+     */
+    itemExist(array,item){
+        if(array.include(item)==true){
+            return true;
+        }
+        return false;
+    }
+    /**
+     * Hàm kiểm tra email
+     */
+    isEmail(value){
+        var regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+        if(regex.test(value)){
+            return true;
+        }
+        return false;
+    }
+    /**
+     * Hàm kiểm tra chỉ chứa chữ số 
+     */
+    isNumber(value){
+        var number='';
+        if(value.length > 3){
+            for(var i = 0 ;i<value.length;i++){
+                if(value[i] != '.'){
+                    number +=value[i]
+                }
+            }
+        }else{
+            number = value
+        }
+         var regex = /^[0-9]*$/
+         if(regex.test(number)){
+            return true;
+        }
+        return false;
+    }
 }
 
 

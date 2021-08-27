@@ -7,15 +7,15 @@
     height: 40px;
     width: 100%;
     border-radius: 4px;
-    border : 1px solid #bbbbbb;
+    border : 1px solid var(--gray);
     padding-left: 16px;
     outline: none;
-    color: #000000;
+    color: var(--back-color);
     font-size: 13px;
     font-family: GoogleSans-Regular;
 }
 .input:focus{
-    border : 1px solid #019160;
+    border : 1px solid var(--default);
 }
 .input-icon{
     position: absolute;

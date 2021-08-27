@@ -1,30 +1,60 @@
 
+/* Table */
+.content-table{
+    width: 100%;
+    height: calc(100vh - 237px);
+    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: scroll;
+    margin-top: 12px;
+    background-color: var(--while-color);
+    position: relative;
+}
+.content-table::-webkit-scrollbar
+{
+    width: 6px;
+    height: 6px;
+    background-color: var(--gray);
+}
+.content-table::-webkit-scrollbar-thumb
+{   
+    min-height: 49px;
+    background-color: var(--light-black);
+    border-radius: 4px;
+}
+.content-table::-webkit-scrollbar-track-piece {
+  margin-top: 48px;
+}
 .delete-scroll{
     content: "";
     display: block;
     position: absolute;
-    top: 122px;
+    top: 124px;
     right: 12px;
     width: 6px;
-    height: 40px;
-    background-color: #E9EBEE;
+    height: 48px;
+    background-color: var(--while-color);
 }
 
+table{
+    width: 100%;
+}
 
 table th, td{
-    height: 40px;
-    border-bottom: 1px solid #bbbbbb;
+    border-bottom: 1px solid var(--gray);
     padding: 10px 16px;
     text-align: left;
     text-overflow: ellipsis;
     max-width: 200px;
     overflow: hidden;
     white-space: nowrap;
+    height: 48px;
+    color: var(--light-black);
 }
 table th{
     position: sticky;
     top: 0;
-    background-color: #ffffff;
+    background-color: var(--while-color);
     z-index: 1;
 }
 tr.active{
@@ -52,23 +82,118 @@ tbody tr:hover{
 
 
 /* Checked  */
-tbody tr td input[type = "checkbox"]{
+ tr  input[type = "checkbox"]{
     width: 16px;
     height: 16px;
     -webkit-appearance: none;
-	border: 1px solid #bbbbbb;
+	border: 1px solid var(--gray);
 	border-radius: 4px;
     position: relative;
+    margin-top: 4px;
 }
-tbody tr td input:checked{
-    background-color: #019160;
+ tr  input:checked{
+    background-color: var(--default);
 }
-tbody tr td input:checked::after{
+ tr  input:checked::after{
     content: '\2713';
     display: block;
 	font-size: 12px;
 	position: absolute;
 	top: -2px;
     left: 1px;
-	color: #ffffff;
+	color: var(--while-color);
+}
+th.check , tbody td.check{
+    padding: 0 10px 0 16px; 
+}
+th.stt , tbody td.stt{
+    padding: 0;
+}
+tr.active{
+    display: none;
+} 
+/* Phan trang */
+.content__pagination{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding-top: 8px;
+    justify-content: space-between;
+    height: 56px;
+}
+.show-number__person,
+.content__pagination-numbershowed{
+    color: var(--light-black) ;
+    cursor: default;
+}
+.show-number__person span,
+.content__pagination-numbershowed span{
+    color: var(--back-color);
+    font-weight: bold;
+}
+.content__pagination-numbers.active{
+    display: none;
+}
+.pagination-item{
+    display: flex;
+}
+.content__pagination-icon{
+    margin:  0 12px;
+    border-radius: 4px;
+    height: 34px;
+    width: 34px;
+    cursor: pointer;
+}
+.content__pagination-icon {
+    line-height: 34px;
+}
+.content__pagination-icon  img{
+    padding-bottom: 3px;
+  
+}
+.content__pagination-icon:hover{
+    background-color: var(--while-color);
+    border: 1px solid var(--gray);
+}
+
+.content__pagination-numbers-item{
+    text-decoration: none;
+    color: var(--back-color);
+    font-size: 13px;
+    line-height: 34px;
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--gray);
+    border-radius: 50%;
+    background-color: var(--white-gray);
+    cursor: pointer;
+    display: block;
+}
+.content__pagination-numbers-item:hover{
+    text-decoration: none;
+    color: var(--back-color);
+}
+.content__pagination-button{
+    padding: 0;
+    list-style: none ;
+    display: flex;
+    align-items: center;
+    max-width: 184px;
+    overflow: hidden;
+    margin: 0;
+}
+.content__pagination-numbers{
+    margin : 0 6px;
+}
+.content__pagination-numbers.active{
+    display: none;
+}
+.content__pagination-numbers-item.focus{
+    background-color: var(--default) !important;
+    color: var(--while-color) !important;
+    border: none;
+}
+
+.content__pagination-numbers-item:hover{
+    background-color: var(--while-color);
 }

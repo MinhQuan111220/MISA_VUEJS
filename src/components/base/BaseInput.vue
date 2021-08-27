@@ -15,8 +15,9 @@
           class="input input-money"
           :id="id"
           v-model="nameInput"
-          @focus="validate"
           @input="formatAndSubmit"
+          ref="money"
+          @blur="onBlur"
         />
         <span class="input-icon input-vnd">(VNĐ)</span>
       </div>
@@ -27,9 +28,8 @@
           :id="id"
           v-model="nameInput"
           :format="type"
-          @focus="validate"
-          @input="formatAndSubmit"
           :autofocus="autofocus"
+          @blur="onBlur"
         />
       </div>
       <div v-if="binding == true">
@@ -41,7 +41,6 @@
 
 <script>
 import Format from "../../untils/Format.js";
-import $ from "jquery";
 export default {
   name: "Input",
   props: {
@@ -86,27 +85,17 @@ export default {
      */
     formatAndSubmit() {
       if (this.iconMoney == true) {
-        $(".input-money").on("input", function () {
-          var value = $(".input-money").val();
+          var value = this.$refs["money"].value
           var afterformat = String(value).replaceAll(".", "");
-          $(".input-money").val(Format.salaryFormat(afterformat));
-        });
+          this.nameInput = Format.salaryFormat(afterformat);
+          console.log(this.nameInput)
       }
     },
-    /**
-     * Hàm xử lý khi một ô input được focus mặc định
-     * creatAt : PVM.Quân (03/08/2021)
-     */
-    focusInput() {
-      this.$refs('input').focus()
-    },
-    /**
-     * Gửi form lên cha để validate dữ liệu
-     * creatAt : PVM.Quân (03/08/2021)
-     */
-    validate() {
-      this.$emit("sendDomValidate", this.formGroup, this.formMessage);
-    },
+
+    onBlur(){
+         var value = this.nameInput
+        this.$emit("sendValueInput", value, this.id);
+    }
   },
   watch: {
     /**
@@ -121,10 +110,6 @@ export default {
      * Gửi dữ liệu lên cha để submit
      * creatAt : PVM.Quân (03/08/2021)
      */
-    nameInput: function () {
-          var value = this.nameInput
-          this.$emit("sendValueInput", value, this.id);
-    },
   },
   data() {
     return {

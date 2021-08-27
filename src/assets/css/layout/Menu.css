@@ -17,12 +17,13 @@
     padding: 0;
     font-family: GoogleSans-Medium;
     position: relative;
+    width: 100%;
 }
 .header-left__logo{
     display: flex;
     height: 48px;
     line-height: 48px;
-    width: 200px;
+    width: 218px;
 }
 .icon-box .icon-toggle{
     height: 24px;
@@ -40,9 +41,9 @@
     border-bottom: 1px solid #ccc;
     justify-content: space-between;
     position: relative;
-    background-color: #ffffff;
+    background-color: var(--while-color);
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
-    border-left: 1px solid #bbbbbb;
+    border-left: 1px solid var(--gray);
     flex: 1;
 }
 .content__header-text{
@@ -91,7 +92,7 @@
 }
 .account__notification{
     font-size: 18px;
-    color: #454545 ;
+    color: var(--light-black) ;
     font-weight: 200;
     cursor: pointer;
     position: relative;
@@ -105,7 +106,7 @@
     top: 2%;
     right: calc(16% - 3px);
     border-radius: 3.5px;
-    border: 2px solid #ffffff;
+    border: 2px solid var(--while-color);
     display: block;
 }
 .account__option{
@@ -113,6 +114,6 @@
     padding-right: 16px;
     margin-top: 2px;
     cursor: pointer;
-    color: #E5E5E5;
+    color: var(--light-gray);
 }
 

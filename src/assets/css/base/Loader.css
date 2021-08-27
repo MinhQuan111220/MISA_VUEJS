@@ -25,11 +25,11 @@
     height: 48px;
     padding-left: 12px;
     width: 350px;
-    background-color: #ffffff;
+    background-color: var(--while-color);
 }
 
 .loader-container .loader {
-    border: 5px solid #E5E5E5;
+    border: 5px solid var(--light-gray);
     border-radius: 50%;
     border-top: 5px solid var(--primary-color);
     width: 25px;
@@ -43,7 +43,7 @@
       margin-left: 10px;
       display: flex;
       align-items: center;
-      background-color: #ffffff;
+      background-color: var(--while-color);
   }
   /* Safari */
   @-webkit-keyframes spin {

@@ -1,150 +1,91 @@
 <template>
-    <div class="page">
-        <!--  Left Content -->
-            <ul class="content-left__content">
-                <li class="content-left__item ">
-                    <div class="content-left__list-icon">
-                        <img src="../../assets/icon/dashboard.png" alt="" class="content-left__icon">
+    <div class="contents">
+        <div class="content">
+            <div class="content__body ">
+                    <div class="content__action">
+                        <div class="content__action-title ">Danh sách nhân viên</div>
+                        <div class="content__action-button">
+                            <button class="button button-delete" :class="{'active':isDelete}" v-on:click="btnDeleteOnclick(false)">
+                                <i class="far fa-trash-alt"></i>
+                                <h3 class="button-text">Xóa Nhân Viên</h3>
+                            </button>
+                            <button class="button add" v-on:click="btnAddOnclick(false)">
+                                <img class="button__icon-left" src="../../assets/icon/add.png" alt="">
+                                <h3 class="button-text">Thêm Nhân Viên</h3>
+                            </button>
+                        </div>
                     </div>
-                    <a href="" class="content-left__name" :class="{'active':isHideContentLeft}">Tổng quan</a>
-                    
-                </li>
-                <li class="content-left__item ">
-                    <div class="content-left__list-icon">
-                        <img src="../../assets/icon/report.png" alt="" class="content-left__icon">
+                    <div class="content__search">
+                        <div class="content__field">
+                            <div class="field">
+                                <img src="../../assets/icon/search.png" alt="" class="field__icon">
+                                <input type="text" class="field__search " name="search" placeholder="Tìm kiếm theo Mã, Tên, Số điện thoại" v-model="valueSearch">   
+                                <div class="delete__value" 
+                                @click="btnDeleteSearch"
+                                :class="valueSearch.length > 0 ? 'active' : ''"
+                                >
+                                    <img
+                                        src="../../assets/icon/x.svg"
+                                        alt=""
+                                    />
+                                </div>
+                            </div>
+                            <ComBoBox :values='"Tất cả phòng ban"'
+                                        :options='departments'
+                                        :name= '"DepartmentName"'
+                                        :id= '"DepartmentId"'
+                                        @sendValueComboboxDepartmentId="getValueComboboxDepartmentId"
+                            />
+                            <ComBoBox :values='"Tất cả các vị trí"'
+                                        :options='positions'
+                                        :name= '"PositionName"'
+                                        :id= '"PositionId"'
+                                        @sendValueComboboxPositionId="getValueComboboxPositionId"
+                                        
+                            />
+                            
+                        </div>
+                        <div class="content__search-refresh" @click="loadDataEmployee">
+                            <div href=""><img src="../../assets/icon/refresh.png" alt=""></div>
+                        </div>
                     </div>
-                    <a href="" class="content-left__name" :class="{'active':isHideContentLeft}">Báo cáo</a>
-                    
-                </li>
-                <li class="content-left__item ">
-                    <div class="content-left__list-icon">
-                        <img src="../../assets/icon/dashboard.png" alt="" class="content-left__icon">
-                    </div>
-                    <a href="" class="content-left__name" :class="{'active':isHideContentLeft}"> Mua hàng</a>
-                   
-                </li>
-                <li class="content-left__item content-left__item-focus">
-                    <div class="content-left__list-icon">
-                        <img src="../../assets/icon/dic-employee.png" alt="" class="content-left__icon">
-                    </div>
-                    <a href="" class="content-left__name" :class="{'active':isHideContentLeft}"> Danh mục nhân viên</a>
-                   
-                </li>
-                <li class="content-left__item ">
-                    <div class="content-left__list-icon">
-                        <img src="../../assets/icon/setting.png" alt="" class="content-left__icon">
-                    </div>
-                    <a href="" class="content-left__name" :class="{'active':isHideContentLeft}">Thiết lập hệ thống</a>
-                </li>
+                    <Table 
+                        :options='employees'
+                        id= 'EmployeeId'
+                        :arrayTH='arrayThEmployee'
+                        propname='propname'
+                        name= 'name'
+                        checkclass='checkclass'
+                        format="format"
+                        @trDbOnClick ="trDbOnClick"
+                        @sendDeleteList ="getDeleteList"
+                        :value="value"
+                        :deleteList="deleteList"
+                        :indexTrdbClick="indexTrdbClick"
+                        :totalPage ="totalPage"
+                        :totalRecord="totalRecord"
+                        @filter="filter"
+                        @removebtnCheckAll ="removebtnCheckAll"
+                    />
                 
-                <div class="show-content" @click="btnShowContent" :class="{'active':isMargin}">
-                    <i class="fas fa-chevron-left" :class="{'active':isHideIconLeft}"></i>
-                    <i class="fas fa-chevron-right" :class="{'active':isHideIconRigth}"></i>
-                </div>
-            </ul>
-        <div class="content" :class="{'active':isMargin}">
-        <div class="content__body ">
-                <div class="content__action">
-                    <div class="content__action-title ">Danh sách nhân viên</div>
-                    <div class="content__action-button">
-                        <button class="button button-delete" :class="{'active':isDelete}" v-on:click="btnDeleteOnclick(false)">
-                            <i class="far fa-trash-alt"></i>
-                            <h3 class="button-text">Xóa Nhân Viên</h3>
-                        </button>
-                        <button class="button add" v-on:click="btnAddOnclick(false)">
-                            <img class="button__icon-left" src="../../assets/icon/add.png" alt="">
-                            <h3 class="button-text">Thêm Nhân Viên</h3>
-                        </button>
-                    </div>
-                </div>
-                <div class="content__search">
-                    <div class="content__field">
-                        <div class="field">
-                            <img src="../../assets/icon/search.png" alt="" class="field__icon">
-                            <input type="text" class="field__search " name="search" placeholder="Tìm kiếm theo Mã, Tên, Số điện thoại" >   
-                        </div>
-                        <ComBoBox :value='"Tất cả phòng ban"'
-                                    :options='departments'
-                                    :name= '"DepartmentName"'
-                                    :id= '"DepartmentId"'
-                                    @sendValueComboboxDepartmentId="getValueComboboxDepartmentId"
-                        />
-                        <ComBoBox :value='"Tất cả các vị trí"'
-                                    :options='positions'
-                                    :name= '"PositionName"'
-                                    :id= '"PositionId"'
-                                    @sendValueComboboxPositionId="getValueComboboxPositionId"
-                                    
-                        />
-                        
-                    </div>
-                    <div class="content__search-refresh" @click="loadDataEmployee">
-                        <div href=""><img src="../../assets/icon/refresh.png" alt=""></div>
-                    </div>
-                </div>
-                <Table 
-                    :options='employees'
-                    id= 'EmployeeId'
-                    :arrayTH='arrayThEmployee'
-                    propname='propname'
-                    name= 'name'
-                    checkclass='checkclass'
-                    format="format"
-                    @trDbOnClick ="trDbOnClick"
-                    @sendDeleteList ="getDeleteList"
-                    :dataValue="dataValue"
-                    :value="value"
-                    :deleteList="deleteList"
-                />
-                <div class="content__pagination">
-                    <div class="show-number__person">Hiển thị <span>1-20/1000</span> nhân viên</div>
-                    <div class="content__pagination-button">
-                        <div class="content__pagination-icon">
-                            <a href=""><img src="../../assets/icon/btn-firstpage.svg" alt=""></a>
-                        </div>
-                        <div class="content__pagination-icon">
-                            <a href=""><img src="../../assets/icon/btn-prev-page.svg" alt=""></a>
-                        </div>
-                        <ul class="list-pagination">
-                            <li class="content__pagination-numbers content__pagination-numbers-focus">
-                                <a href="" class="content__pagination-numbers-item">1</a>
-                            </li>
-                            <li class="content__pagination-numbers">
-                                <a href="" class="content__pagination-numbers-item">2</a>
-                            </li>
-                            <li class="content__pagination-numbers">
-                                <a href="" class="content__pagination-numbers-item">3</a>
-                            </li>
-                            <li class="content__pagination-numbers">
-                                <a href="" class="content__pagination-numbers-item">4</a>
-                            </li>
-                        </ul>
-                        <div class="content__pagination-icon">
-                            <a href=""><img src="../../assets/icon/btn-next-page.svg" alt=""></a>
-                        </div>
-                        <div class="content__pagination-icon">
-                            <a href=""><img src="../../assets/icon/btn-lastpage.svg" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="content__pagination-numbershowed">
-                        <span>20</span> nhân viên/trang
-                    </div>
-                </div>
-        </div>
+            </div>
        
-        <div class="delete-scroll">
-        </div>
+            <div class="delete-scroll">
+            </div>
     </div > 
         <EmployeeDetail :isHide='isHideDiaLogDetail' 
-        @btnAddOnclick ="btnAddOnclick"
+        @btnCancelOnclick ="btnCancelOnclick"
         :employeeId='employeeId'
         :mode='mode'
         :department='departmentsDropDown'
         :position='positionsDropDown'
         :arrayEmployeeCode="arrayEmployeeCode"
         :arrayIdentityNumber="arrayIdentityNumber"
+        :employeeNewCode ="employeeNewCode"
         @toastMessenger="toastMessenger"
         @addEmployee="getEmployeeApi"
+        @warningUpdate="warningUpdate"
+        @setIndexTrDbClick="getIndexTrDbClick"
         ref="employeeModal"
         />
 
@@ -161,6 +102,7 @@
             :lable="lable"  
             :isSuccess="isSuccess"
             :isWarning="isWarning" 
+            :isError="isError"
         />
 
         <Loader 
@@ -180,6 +122,9 @@ import Loader from '../../components/base/BaseLoader.vue'
 import EmployeesAPI from "../../api/components/EmployeesApi";
 import PositionAPI from "../../api/components/PositionApi.js";
 import DepartmentAPI from "../../api/components/DepartmentsApi.js";
+import MessengerEmployee from "../../constants/MessengerEmployee"
+import MessengerError from "../../constants/MessengerError"
+import EmployeesApi from '../../api/components/EmployeesApi'
 
 
 export default {
@@ -222,22 +167,44 @@ export default {
         }).catch(error =>{
                         _this.consoleError(error.response.status)
                     })
-
+        
          /**
          * Lấy dữ liệu nhân viên
          * creatAt : PVM.Quân (29/07/2021)
          */
         EmployeesAPI.getAll().then(res =>{
-            _this.employees = res.data
-            _this.employees.forEach((item,index)=>{
+                var employees = res.data
+                employees.forEach((item,index)=>{
                 _this.arrayEmployeeCode[index] = item.EmployeeCode
                 _this.arrayIdentityNumber[index] = item.IdentityNumber
-            })
+                })
+            }).catch(error =>{
+                            _this.consoleError(error.response.status)
+                        })
+
+         /**
+         * Lấy dữ liệu nhân viên theo phân trang
+         * creatAt : PVM.Quân (29/07/2021)
+         */
+        EmployeesApi.paging(this.employeeFilter,this.departmentId,this.positionId,this.pageIndex,this.pageSize).then(res =>{
+            _this.totalPage = res.data.totalPage
+            _this.totalRecord = res.data.totalRecord
+            _this.employees = res.data.data
             _this.isHideLoader = true
             }).catch(error =>{
             _this.consoleError(error.response.status)
             })
-        
+        /**
+             * Lấy dữ liệu newCode mới vào
+             * PVM.Quân (04/08/2021) 
+             */  
+            EmployeesAPI.get("NewEmployeeCode")
+            .then((res) => {
+                _this.employeeNewCode = res.data
+            })
+            .catch((error) => {
+                _this.consoleError(error.response.status);
+            });
     },
     methods: {
         /**
@@ -258,15 +225,14 @@ export default {
          * Load lại data 
          */
         loadDataEmployee(){
-            
             var _this = this
             this.isHideLoader = false
-            this.employees = {}
             this.isDelete = true
             this.deleteList = []
+            
             EmployeesAPI.getAll().then(res =>{
-            _this.employees = res.data
-            _this.employees.forEach((item,index)=>{
+           var employees = res.data
+            employees.forEach((item,index)=>{
                 _this.arrayEmployeeCode[index] = item.EmployeeCode
                 _this.arrayIdentityNumber[index] = item.IdentityNumber
             })
@@ -274,26 +240,49 @@ export default {
             }).catch(error =>{
             _this.consoleError(error.response.status)
             })
+
+            /**
+         * Lấy dữ liệu nhân viên theo phân trang
+         * creatAt : PVM.Quân (29/07/2021)
+         */
+        EmployeesApi.paging(this.employeeFilter,this.departmentId,this.positionId,this.pageIndex,this.pageSize).then(res =>{
+            _this.totalPage = res.data.totalPage
+            _this.totalRecord = res.data.totalRecord
+            _this.employees = res.data.data
+            _this.isHideLoader = true
+            }).catch(error =>{
+            _this.consoleError(error.response.status)
+            })
         },
+        /**
+         * Hiển thị form chi tiết khi nhấn cancel
+         * Author : PVM.Quân (29/07/2021)
+         */
+        btnCancelOnclick(){
+            this.isHideDiaLogDetail = true
+            this.indexTrdbClick = -1
+        },
+       
         /**
          * Hiển thị form chi tiết khi nhấn button thêm nhân viên
          * Author : PVM.Quân (29/07/2021)
          */
-        btnAddOnclick(isHide){
-            this.isHideDiaLogDetail = isHide
+        btnAddOnclick(){
+            this.isHideDiaLogDetail = false
             this.mode = 2
-            this.showFormDetail = true
-            this.$refs.employeeModal.focusInput();
+            this.$refs.employeeModal.focusInput()
+           
         },
 
         /**
          * Hiển thị form chi tiết khi Sửa nhân viên
          * Author : PVM.Quân (29/07/2021)
          */
-        trDbOnClick(employeeId){
+        trDbOnClick(employeeId,index){
             this.isHideDiaLogDetail = false
             this.employeeId = employeeId
             this.mode = 1
+            this.indexTrdbClick = index
             this.$refs.employeeModal.focusInput();
         },
 
@@ -310,69 +299,130 @@ export default {
          * Author : PVM.Quân (06/08/2021)
          */
         toastMessenger(isShowToast,lable){
-            this.isShowToast = isShowToast
-            this.lable = lable
-            this.isWarning = false
-            this.isSuccess = true
+            if(this.isHideLoader == true){
+                setTimeout(()=>{
+                    this.isShowToast = isShowToast
+                this.lable = lable
+                this.isWarning = false
+                this.isSuccess = true
+                this.isError = false;
+                setTimeout(() => {
+                    this.isShowToast = true
+                }, 5000);
+                },100)
+            }
+        },
+
+        /**
+         * Hiển thị cảnh báo khi không sửa gì
+         */
+        warningUpdate(){
+            this.isShowToast = false;
+            this.isSuccess = false;
+            this.isError = true;
+            this.isWarning = false;
+            this.lable = MessengerError.Warning
             setTimeout(() => {
                 this.isShowToast = true
             }, 5000);
         },
-
         /**
          * Tạo form hiển thị khi thất bại
          * creatBy : PVM.Quân(06/08)
          */
-        consoleError(error){
-            var _this = this
-            _this.isShowToast = false
-            _this.isSuccess = false
-            _this.isWarning = true
+         consoleError(error) {
+            var _this = this;
+            _this.isShowToast = false;
+            _this.isSuccess = false;
+            _this.isError = false;
+            _this.isWarning = true;
             switch (error) {
-                case 500:
-                    _this.lable = 'Có lỗi từ server vui lòng liên hệ MiSA để giải quyết'
-                break;
                 case 400:
-                    _this.lable = 'Dữ liệu bạn gửi lên không hợp lệ'
+                _this.lable = MessengerError.Error400
+                break;
+                case 401:
+                _this.lable = MessengerError.Error401
+                break;
+                case 403:
+                _this.lable = MessengerError.Error403
+                break;
+                case 404:
+                _this.lable = MessengerError.Error404
+                break;
+                case 500:
+                _this.lable = MessengerError.Error500
                 break;
                 default:
                 break;
             }
             setTimeout(() => {
-                 _this.isShowToast = true
+                _this.isShowToast = true;
             }, 5000);
         },
         /**
          * Lấy dữ liệu từ combobox truyền lên 
          */
-        getValueComboboxDepartmentId(value){
-            this.dataValue[0] = value
-            this.value = value
+        getValueComboboxDepartmentId(id){
+            this.departmentId = id
+            this.pageIndex = 1
+            this.isHideLoader = false
+            this.getPaging()
         },
-        getValueComboboxPositionId(value){
-            this.dataValue[1] = value
-            this.value = value
+        getValueComboboxPositionId(id){
+           this.positionId = id
+           this.pageIndex=1
+            this.isHideLoader = false
+           this.getPaging()
         },
+        
 
         /**
         / Lấy dữ liệu mới khi thêm thành công
          */
         getEmployeeApi(){
              var _this = this
+              _this.isHideLoader = false
             /**
              * Lấy dữ liệu nhân viên sau khi bị thay đổi
              * creatAt : PVM.Quân (29/07/2021)
              */
             EmployeesAPI.getAll().then(res =>{
-                _this.employees = res.data
-                _this.employees.forEach((item,index)=>{
+                var employees = res.data
+                employees.forEach((item,index)=>{
                 _this.arrayEmployeeCode[index] = item.EmployeeCode
                 _this.arrayIdentityNumber[index] = item.IdentityNumber
+                _this.isHideLoader = true
                 })
             }).catch(error =>{
                             _this.consoleError(error.response.status)
                         })
             
+            /**
+             * Lấy dữ liệu newCode mới vào
+             * PVM.Quân (04/08/2021) 
+             */  
+            EmployeesAPI.get("NewEmployeeCode")
+            .then((res) => {
+                _this.employeeNewCode = res.data
+                _this.isHideLoader = true
+                
+            })
+            .catch((error) => {
+                _this.consoleError(error.response.status);
+            });
+
+            /**
+         * Lấy dữ liệu nhân viên theo phân trang
+         * creatAt : PVM.Quân (29/07/2021)
+         */
+        EmployeesApi.paging(this.employeeFilter,this.departmentId,this.positionId,this.pageIndex,this.pageSize).then(res =>{
+            _this.totalPage = res.data.totalPage
+            _this.totalRecord = res.data.totalRecord
+            _this.employees = res.data.data
+            _this.isHideLoader = true
+            }).catch(error =>{
+            _this.consoleError(error.response.status)
+            })
         },
         /**
          * Refresh lại bảng và hiện thông báo sau khi xóa thành công 
@@ -381,11 +431,9 @@ export default {
              var _this = this
             EmployeesAPI.getAll().then(res =>{
                  _this.deleteList = []
-                
-
+                var employees = res.data
                 // Lấy lại mảng sau khi xóa
-                _this.employees = res.data
-                _this.employees.forEach((item,index)=>{
+                employees.forEach((item,index)=>{
                     _this.arrayEmployeeCode[index] = item.EmployeeCode
                     _this.arrayIdentityNumber[index] = item.IdentityNumber
                 })
@@ -394,8 +442,9 @@ export default {
                 
                 // Hiển thị thông báo tương ứng
                 _this.isShowToast = false
-                _this.lable = 'Xóa nhân viên thành công'
+                _this.lable = MessengerEmployee.DeleteCorrect
                 _this.isWarning = false
+                _this.isError = false
                 _this.isSuccess = true
                 setTimeout(() => {
                     _this.isShowToast = true
@@ -403,6 +452,31 @@ export default {
                 _this.isDelete = true
             }).catch(error =>{
                  _this.consoleError(error.response.status)
+            })
+
+            /**
+             * Lấy dữ liệu newCode mới vào
+             * PVM.Quân (04/08/2021) 
+             */  
+            EmployeesAPI.get("NewEmployeeCode")
+            .then((res) => {
+                _this.employeeNewCode = res.data
+            })
+            .catch((error) => {
+                _this.consoleError(error.response.status);
+            });
+
+            /**
+         * Lấy dữ liệu nhân viên theo phân trang
+         * creatAt : PVM.Quân (29/07/2021)
+         */
+        EmployeesApi.paging(this.employeeFilter,this.departmentId,this.positionId,this.pageIndex,this.pageSize).then(res =>{
+            _this.totalPage = res.data.totalPage
+            _this.totalRecord = res.data.totalRecord
+            _this.employees = res.data.data
+            _this.isHideLoader = true
+            }).catch(error =>{
+            _this.consoleError(error.response.status)
             })
         },
         /**
@@ -413,36 +487,69 @@ export default {
         },
 
         /**
-         * Xử lý ẩn và hiện nội dung của menu
+         * Xóa value của ô input tìm kiếm
          */
-        btnShowContent(){
-            this.index++
-            if(this.index == 1){
-                this.isHideIconLeft = true
-                this.isHideIconRigth = false
-                this.isHideContentLeft = true
-                this.isMargin = false
-                document.querySelector('.content-left__content').style.width = 52 + 'px'
-            }else{
-                this.index = 0
-                this.isHideIconLeft = false
-                this.isHideIconRigth = true
-                this.isHideContentLeft = false
-                 this.isMargin = true
-                document.querySelector('.content-left__content').style.width = 200 + 'px'
-            }
+        btnDeleteSearch(){
+            this.valueSearch = ""
+        },
+
+        /**
+         * Xóa background tr khi hủy form
+         */
+        getIndexTrDbClick(){
+            this.indexTrdbClick = -1
+        },
+
+        filter(pageIndex,pageSize){
+            this.pageIndex = pageIndex
+            this.pageSize = pageSize
+            this.isHideLoader = false
+            this.getPaging()
+        },
+        /**
+         * Tạo phương thức lấy dữ liệu phân trang
+         */
+        getPaging(){
+            var _this = this
+            EmployeesApi.paging(this.employeeFilter,this.departmentId,this.positionId,this.pageIndex,this.pageSize).then(res =>{
+            _this.totalPage = res.data.totalPage
+            _this.totalRecord = res.data.totalRecord
+            _this.employees = res.data.data
+            _this.isHideLoader = true
+            }).catch(error =>{
+            _this.consoleError(error.response.status)
+            })
+        },
+        removebtnCheckAll(){
+            this.deleteList = []
         }
     },
 
 
     watch : {
+        /**
+         * Xử lý ẩn hiện button xóa 
+         */
         deleteList: function(){
                 if(this.deleteList.length ==0){
                     this.isDelete = true
                 } else{
                     this.isDelete = false
                 }
-            }
+            },
+            /**
+             * Xử lý lọc tìm kiếm theo tên,mã sinh viên 
+             */
+        valueSearch(){
+            var _this = this
+            clearTimeout(this.timeout);
+                this.timeout = setTimeout(function () {
+                    _this.employeeFilter = _this.valueSearch
+                    _this.pageIndex = 1
+                    _this.isHideLoader = false
+                    _this.getPaging()
+                }, 300);
+        }
     },
     data() {
         return{
@@ -464,15 +571,24 @@ export default {
             lable : '',
             isSuccess : '',
             isWarning :'',
-            dataValue : [null,null], 
+            isError :'',
             value : '',
             showFormDetail : false,
             isHideLoader : false,
-            isHideIconLeft : false,
-            isHideIconRigth : true,
-            isHideContentLeft : false,
             index : 0,
             isMargin : true,
+            valueSearch : '',
+            indexTrdbClick : -2,
+            employeeNewCode : '',
+            employeeFilter : '',
+            departmentId : '',
+            positionId : '', 
+            pageIndex : 1,
+            pageSize : 20,
+            totalPage : 0,
+            totalRecord : 0,
+            timeout: null,
+            
             /**
              * Mảng chứa các th trong table
              */
@@ -527,7 +643,8 @@ export default {
                 {
                     propname : 'WorkStatus',
                     name : 'Tình trạng công việc',
-                    checkclass : ''
+                    checkclass : '',
+                    format : "status"
                 },
             ]
         }

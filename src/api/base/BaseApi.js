@@ -20,8 +20,8 @@ export default class BaseAPI {
    * Hàm lấy dữ liệu phân trang
    * @param {*} payload
    */
-  paging(payload) {
-    return BaseAPIConfig.post(`${this.controller}/paging`, payload); 
+  paging(Filter,DepartmentId,PostionId,pageIndex,pageSize) {
+    return BaseAPIConfig.get(`${this.controller}/filter?EmployeeFilter=${Filter}&DepartmentId=${DepartmentId}&PositionId=${PostionId}&PageIndex=${pageIndex}&PageSize=${pageSize}`); 
   }                                                                   
   /**                                                                 
    * Hàm cập nhật dữ liệu
@@ -45,5 +45,9 @@ export default class BaseAPI {
    */
   delete(id) {
     return BaseAPIConfig.delete(`${this.controller}/${id}`);
+  }
+
+  deleteListId(listId){
+    return BaseAPIConfig.post(`${this.controller}/listEntityId`,listId);
   }
 }

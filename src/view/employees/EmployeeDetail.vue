@@ -21,7 +21,7 @@
                 >(Vui lòng chọn ảnh có định dạng .jbg.,jebg,.png,.git )
               </span>
             </div>
-            <div class="staff-information__information-person col-lg-9">
+            <div class="staff-information__information-person col-lg-9" ref="form">
               <ul class="staff-information__general row">
                 <li class="col-lg-12">
                   <span class="title staff-information__general-title"
@@ -30,9 +30,8 @@
                 </li>
                 <li class="staff-information__general-item col-lg-6">
                   <Input
-                    :name="employeeCode == null ? '' : employeeCode" 
+                    :name="mode == 1 ? employeeCode : employeeNewCode" 
                     :binding="true"
-                    @sendDomValidate="getDomValidate"
                     :isFocus="true"
                     value="Mã nhân viên"
                     id="EmployeeCode"
@@ -47,7 +46,6 @@
                   <Input
                     :name="employee.FullName == null ? '' : employee.FullName"
                     :binding="true"
-                    @sendDomValidate="getDomValidate"
                     value="Họ và Tên"
                     id="FullName"
                     type="text"
@@ -63,7 +61,6 @@
                     id="DateOfBirth"
                     type="date"
                     @sendValueInput="getValueInput"
-                    @sendDomValidate="getDomValidate"
                   />
                 </li>
                 <li class="staff-information__general-item col-lg-6">
@@ -88,7 +85,6 @@
                         : employee.IdentityNumber
                     "
                     :binding="true"
-                    @sendDomValidate="getDomValidate"
                     value="Số CMTND/Căn cước"
                     id="IdentityNumber"
                     type="text"
@@ -104,7 +100,6 @@
                     id="IdentityDate"
                     type="date"
                     @sendValueInput="getValueInput"
-                    @sendDomValidate="getDomValidate"
                   />
                 </li>
                 <li class="staff-information__general-item col-lg-6">
@@ -118,7 +113,6 @@
                     id="IdentityPlace"
                     type="text"
                     @sendValueInput="getValueInput"
-                    @sendDomValidate="getDomValidate"
                   />
                 </li>
                 <li class="staff-information__general-item col-lg-6"></li>
@@ -126,7 +120,6 @@
                   <Input
                     :name="employee.Email == null ? '' : employee.Email"
                     :binding="true"
-                    @sendDomValidate="getDomValidate"
                     value="Email"
                     id="Email"
                     type="text"
@@ -139,7 +132,6 @@
                       employee.PhoneNumber == null ? '' : employee.PhoneNumber
                     "
                     :binding="true"
-                    @sendDomValidate="getDomValidate"
                     value="Số điện thoại"
                     id="PhoneNumber"
                     type="text"
@@ -190,7 +182,6 @@
                     id="PersonalTaxCode"
                     type="text"
                     @sendValueInput="getValueInput"
-                    @sendDomValidate="getDomValidate"
                   />
                 </li>
                 <li class="staff-information__general-item col-lg-6 form-group">
@@ -201,7 +192,6 @@
                     id="Salary"
                     type="text"
                     @sendValueInput="getValueInput"
-                    @sendDomValidate="getDomValidate"
                   />
                 </li>
                 <li class="staff-information__general-item col-lg-6 form-group">
@@ -211,7 +201,6 @@
                     id="JoinDate"
                     type="date"
                     @sendValueInput="getValueInput"
-                    @sendDomValidate="getDomValidate"
                   />
                 </li>
                 <li class="staff-information__general-item col-lg-6 form-group">
@@ -237,7 +226,6 @@
             <button
               class="button button-save"
               id="button-save"
-              
             >
               <i class="far fa-save"></i>
               Lưu
@@ -246,33 +234,25 @@
         </div>
       </div>
     </div>
-    <ToastMessenger
-      :isShowToast="isShowToast"
-      :lable="lable"
-      :isSuccess="isSuccess"
-      :isWarning="isWarning"
-    />
   </div>
 </template>
 
-
 <script>
 // Author : PVM.Quân (29/07/2021)
-
+// import $ from "jquery";
 import DropDown from "../../components/base/BaseDropDown.vue";
 import Input from "../../components/base/BaseInput.vue";
 import EmployeesAPI from "../../api/components/EmployeesApi";
-import ToastMessenger from "../../components/base/BaseToastMessenger.vue";
-import Vadilator from "../../untils/Vadilator.js";
 import Format from "../../untils/Format.js";
-import $ from "jquery";
+import MessengerEmployee from "../../constants/MessengerEmployee"
+import MessengerError from "../../constants/MessengerError"
+import Vadilator from "../../untils/Vadilator.js";
 
 export default {
   name: "EmployeeDetail",
   components: {
     DropDown,
     Input,
-    ToastMessenger,
   },
   props: {
     isHide: {
@@ -287,7 +267,7 @@ export default {
     },
     mode: {
       type: Number,
-      default: 0, // 0 thêm mới 1 sửa
+      default: 0, 
       required: true,
     },
     department: {
@@ -306,21 +286,11 @@ export default {
       type: [Array],
       required: true,
     },
-  },
-  /**
-     * Lấy dữ liệu newCode mới vào
-     * PVM.Quân (04/08/2021) 
-     */  
-  created() {
-    var _this = this
-    EmployeesAPI.get("NewEmployeeCode")
-      .then((res) => {
-        _this.employeeCode = res.data;
-        _this.employeeNewCode = res.data
-      })
-      .catch((error) => {
-        _this.consoleError(error.response.status);
-      });
+    employeeNewCode: {
+      type: String,
+      default: "",
+      required: true,
+    },
   },
 
   methods: {
@@ -334,44 +304,22 @@ export default {
      * PVM.Quân (04/08/2021) 
      */  
     getValueInput(value, id) {
-        this.employee[id] = value;
+      if(this.employee[id] != value){
+        this.checkValueForm = true
+        }else{
+          this.checkValueForm = false
+        }
+        if(id == "Salary"){
+          this.employee[id]=value.replaceAll(".",'')
+        }
+        else{
+          this.employee[id]=value
+        }
+        
         this.validate()
     },
 
     /**
-     * Lấy dữ liệu từ BaseDropDown để submit
-     * PVM.Quân (04/08/2021)
-     */
-    getValueDropDown(value, id) {
-      this.employee[id] = value;
-    },
-    /**
-     * Xử lý khi thoát khỏi form  nhân viên và xóa các cảnh báo lỗi nếu có
-     * PVM.Quân (29/07/2021)
-     */
-    btnCancel() {
-      this.$emit("btnAddOnclick", true, 0);
-      document
-        .querySelectorAll(".form-group.invalid")
-        .forEach((item, index) => {
-          item.classList.remove("invalid");
-          document.querySelectorAll(".form-message")[index].innerText = "";
-        });
-        if(this.mode == 2){
-          //
-        }else{
-          document.querySelector('tbody tr.focus').classList.remove('focus')
-        }
-    },
-    /**
-     * Hàm xử lý validate dữ liệu
-     * creatAt : PVM.Quân (03/08/2021)
-     */
-    getDomValidate(formGroup, formMessage) {
-      this.formGroup = formGroup;
-      this.formMessage = formMessage;
-    },
-     /**
      * Hàm xử lý validate dữ liệu
      * creatAt : PVM.Quân (03/08/2021)
      */
@@ -447,39 +395,70 @@ export default {
      
     },
     /**
+     * Lấy dữ liệu từ BaseDropDown để submit
+     * PVM.Quân (04/08/2021)
+     */
+    getValueDropDown(value, id) {
+      if(this.employee[id] != value){
+          this.employee[id] = value
+          this.checkValueForm = true
+        }else{
+          this.checkValueForm = false
+        }
+    },
+    /**
+     * Xử lý khi thoát khỏi form  nhân viên và xóa các cảnh báo lỗi nếu có
+     * PVM.Quân (29/07/2021)
+     */
+    btnCancel() {
+      this.$emit("btnCancelOnclick", this.mode);
+      this.$refs["form"].querySelectorAll('.form-group.invalid').forEach(item=>{
+        item.classList.remove('invalid')
+      })
+      this.$refs["form"].querySelectorAll('.form-group .form-message').forEach(item=>{
+        item.innerText = ""
+      })
+    },
+
+    /**
      * Tạo phương thức post
      */
     post() {
       var _this = this;
       EmployeesAPI.post(_this.employee)
         .then(() => {
-          _this.$emit("toastMessenger", false, "Thêm mới nhân viên thành công");
+          _this.$emit("toastMessenger", false, MessengerEmployee.AddCorrect);
           _this.$emit("btnAddOnclick", true, 0);
           _this.$emit("addEmployee")
+        this.btnCancel()
         })
         .catch((error) => {
           _this.consoleError(error.response.status);
         });
     },
     /**
-     * Tạo phương thức put
+     * Tạo phương thức put và kiểm tra xem có thay đổi gì không
      */
     put() {
-      var _this = this;
-      _this.employee.Salary = String(_this.employee.Salary).replaceAll('.','')
-      EmployeesAPI.put(_this.employeeId, _this.employee)
-        .then(() => {
-          _this.$emit("toastMessenger", false, "Sửa nhân viên thành công");
-          $(".input").empty();
-          _this.$emit("btnAddOnclick", true, 0);
-          _this.$emit("addEmployee")
-          document.querySelectorAll('tbody tr').forEach(item=>{
-          item.style.backgroundColor  = `#ffffff`
-          })
-        })
-        .catch((error) => {
-          _this.consoleError(error.response.status);
-        });
+      
+        var _this = this;
+        if(this.checkValueForm == true){
+          _this.employee.Salary = String(_this.employee.Salary).replaceAll('.','')
+          EmployeesAPI.put(_this.employeeId, _this.employee)
+            .then(() => {
+              _this.$emit("toastMessenger", false, MessengerEmployee.UpdateCorrect);
+              _this.$emit("btnAddOnclick", true, 0);
+              _this.$emit("addEmployee")
+               this.btnCancel()
+            })
+            .catch((error) => {
+              _this.consoleError(error.response.status);
+            });
+        }else{
+            this.$emit("warningUpdate")
+            
+        }
+       
     },
 
     /**
@@ -488,15 +467,25 @@ export default {
      */
     consoleError(error) {
       var _this = this;
+      MessengerError
       _this.isShowToast = false;
       _this.isSuccess = false;
       _this.isWarning = true;
       switch (error) {
-        case 500:
-          _this.lable = "Có lỗi từ server vui lòng liên hệ MiSA để giải quyết";
-          break;
         case 400:
-          _this.lable = "Dữ liệu bạn gửi lên không hợp lệ";
+          _this.lable = MessengerError.Error400
+          break;
+        case 401:
+          _this.lable = MessengerError.Error401
+          break;
+        case 403:
+          _this.lable = MessengerError.Error403
+          break;
+        case 404:
+          _this.lable = MessengerError.Error404
+          break;
+        case 500:
+          _this.lable = MessengerError.Error500
           break;
         default:
           break;
@@ -509,19 +498,40 @@ export default {
 
   data() {
     return {
-      employee: {},
       check: 0,
       formGroup: "",
       formMessage: "",
-      newEmployeeCode: "",
+      employee : {
+          EmployeeCode: "",
+            FullName: "",
+            DateOfBirth: null,
+            IdentityNumber: "",
+            IdentityDate: null,
+            IdentityPlace: "",
+            Email: "",
+            PhoneNumber: "",
+            PositionName: "",
+            DepartmentName: "",
+            PersonalTaxCode: "",
+            Salary: "",
+            JoinDate: null,
+            WorkStatus: "",
+      },
       employeeCode: "",
+      identityNumber :" ",
       isShowToast: "",
       lable: "",
       isSuccess: "",
       isWarning: "",
+      isError : "",
       valueInput : '',
       idInput : '',
       autofocus : false,
+      checkValueForm : false,
+      isDoubleCode : false,
+      isIdentityNumber : false,
+      checkForm : 1,
+      isRequired : true,
       /**
        * Mảng chứa giới tính
        */
@@ -547,25 +557,27 @@ export default {
      * PVM.Quân (29/07/2021)
      */
     mode: function () {
-     this.autofocus = true
-      var _this = this;
-      if (this.mode == 2) {
-        this.employee = {};
-        this.check = 0;
-        /**
-         * Gọi Api lấy dữ liệu mã mới
-         * PVM.Quân(05/08/2021) 
-         */
-        _this.employeeCode = _this.employeeNewCode
-      } else {
+       if (this.mode == 2) {
+          this.employee = {};
+          this.check = 0;
+          this.checkForm = 2
+          this.employee.EmployeeCode = this.employeeNewCode
+      } 
+      else {
         this.check = 1;
-        /**
+        this.checkForm = 1
+      }
+    },
+     /**
          * Load dữ liệu để lấy thông tin theo nhân viên
          */
+    employeeId : function(){
+       var _this = this;
         EmployeesAPI.get(_this.employeeId)
           .then((res) => {
-             _this.employee = res.data;
+            _this.employee = res.data;
             _this.employeeCode =_this.employee.EmployeeCode 
+            _this.identityNumber = _this.employee.IdentityNumber
             _this.employee.DateOfBirth = Format.formatDateToModal(_this.employee.DateOfBirth);
             _this.employee.IdentityDate = Format.formatDateToModal(_this.employee.IdentityDate);
             _this.employee.JoinDate = Format.formatDateToModal(_this.employee.JoinDate);
@@ -574,7 +586,6 @@ export default {
           .catch((error) => {
             _this.consoleError(error.response.status);
           });
-      }
     }
   },
 };

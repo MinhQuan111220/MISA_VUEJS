@@ -5,29 +5,35 @@
     z-index: 1;
     padding: 24px 0;
     right: 0;
+    top: 0;
 }
 .staff-information.active{
     display: none;
 }
 .staff-information__person{
-    background-color: #ffffff;
+    background-color: var(--while-color);
     width:  750px;
     margin : 0 auto;
-    border-radius: 8px;
+    border-radius: 4px;
     
 }
 /* header */
 .staff-information__header{
     display: flex;
     justify-content: space-between;
+    position: relative;
 }
 .staff-information__header-heading{
     padding: 24px;
 }
 .staff-information__header-img{
-    padding-right: 4px;
-    padding-bottom: 53px;
     cursor: pointer;
+    position: absolute;
+    border-radius: 4px;
+    right: 0;
+}
+.staff-information__header-img:hover{
+    background-color: var(--white-gray);
 }
 
 /* information */
@@ -38,7 +44,7 @@
 }
 
 .staff-information__img-person img{
-    border: 1px solid #bbbbbb;
+    border: 1px solid var(--gray);
     width: 100%;
     border-radius: 50%;
    
@@ -57,12 +63,12 @@
 {
     width: 6px;
     height: 6px;
-    background-color: #bbbbbb;
+    background-color: var(--gray);
 }
 .staff-information__general::-webkit-scrollbar-thumb
 {   
     min-height: 40px;
-    background-color: #454545;
+    background-color: var(--light-black);
     border-radius: 4px;
 }
 
@@ -78,7 +84,7 @@
     position: absolute;
     width: 50%;
     height: 4px;
-    background-color: #01B075;
+    background-color: var(--primary-color);
     top: 110%;
 }
 .staff-information__general-item{

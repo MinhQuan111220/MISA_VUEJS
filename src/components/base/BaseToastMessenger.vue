@@ -1,13 +1,21 @@
 <template>
         <div class="toast-messenger" :class="{'active':isShowToast}">
            <div class="toast-messenger__show">
-                <div class="toast-icon" :class="{'toast-success':isSuccess,'toast-warning':isWarning}">
-                <i class="fas fa-check-circle"></i>
+                <div class="toast-icon" :class="{'toast-success':isSuccess,'toast-warning':isWarning,'toast-error':isError}">
+                <i class="fas fa-check-circle" :class="{'toast-success':isSuccess}"></i>
+                <i class="fas fa-exclamation-circle" :class="{'toast-error':isError}"></i>
+                <i class="fas fa-exclamation-triangle" :class="{'toast-warning':isWarning}"></i>
                 </div>    
                 <div class="toast-title">
                     {{lable}}
                 </div>
-                <i class="fas fa-times toast-close" :class="{'toast-success':isSuccess,'toast-warning':isWarning}" @click="btnExitOnClick"></i>
+                    <img
+                    src="../../assets/icon/x.svg"
+                    alt=""
+                    class="toast-close"
+                    :class="{'toast-success':isSuccess,'toast-warning':isWarning,'toast-error':isError}"
+                    @click="btnExitOnClick"
+                    />
            </div>
         </div>
 </template>
@@ -28,6 +36,11 @@ export default {
             required: true,
         },
         isWarning: {
+            type: Boolean,
+            default : false,
+            required: true,
+        },
+        isError: {
             type: Boolean,
             default : false,
             required: true,

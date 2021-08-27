@@ -1,0 +1,18 @@
+:root{
+    --primary-color: #01B075;
+    --hover-color: #2FBE8E;
+    --default: #019160;
+    --focus: #EBF9F4;
+    --red-color: #F65454;
+    --light-pink: #FFEBEB;
+    --blue: #FFEBEB;
+    --light-blue: #FFEBEB;
+    --orange: #FFEBEB;
+    --skin: #FFF3EB;
+    --light-black: #454545;
+    --gray: #BBBBBB;
+    --light-gray: #E5E5E5 ;
+    --white-gray: #E9EBEE;
+    --while-color : #ffffff;
+    --back-color : #000000;
+}

@@ -16,7 +16,7 @@
                         <i class="fas fa-exclamation-triangle"></i>
                     </div>
                     <div class="pop-up-description">
-                        <div>{{value}}</div>
+                        <span>{{value}}</span>
                     </div>
                 </div>
             </div>
@@ -69,25 +69,29 @@ export default {
         btnDeleteOnClick(){
             var _this = this
             _this.$emit('btnConfirmDelete',true)
-            this.deleteList.forEach((item)=>{
-                _this.delete(item)
-            })
-            this.$emit('btnDeleteOnclick',true) 
-        }, 
-
-        /**
-         * Hàm gọi Api để xóa
-         * PVM.Quân (29/07/2021)
-         */
-        delete :  function(id){
-            var _this = this
-                    EmployeesAPI.delete(id).then(() => {
+            if(this.deleteList.length==1){
+                 EmployeesAPI.delete(this.deleteList[0]).then(() => {
                          _this.$emit("refeshData")
                        
                     }).catch(error =>{
                         _this.$emit("deleteFail",error)
                     })
-            },
+            }else{
+                
+               var lisId = []
+               this.deleteList.forEach((id,index)=>{
+                   lisId[index]=id
+               })
+                 EmployeesAPI.deleteListId(JSON.stringify(lisId)).then(() => {
+                         _this.$emit("refeshData")
+                       
+                    }).catch(error =>{
+                        _this.$emit("deleteFail",error)
+                    })
+                // console.log(lisId)
+            }
+            this.$emit('btnDeleteOnclick',true) 
+        }, 
     },
 
     data() {
@@ -107,7 +111,7 @@ export default {
                 var _this = this;
                 EmployeesAPI.get(_this.deleteList[0])
                     .then((res) => {
-                        _this.value = `Bạn có chắc chắn muốn xóa nhân viên "${res.data.FullName.toUpperCase()}" có mã nhân viên "${res.data.EmployeeCode.toUpperCase()}" ra khỏi danh sách không ? Xóa là sẽ không khôi phục lại được !`
+                        _this.value = `Bạn có chắc chắn muốn xóa nhân viên " ${res.data.FullName.toUpperCase()} " có mã nhân viên " ${res.data.EmployeeCode.toUpperCase()} " ra khỏi danh sách không ? Xóa là sẽ không khôi phục lại được !`
                     })
                     .catch((error) => {
                     _this.consoleError(error.response.status);

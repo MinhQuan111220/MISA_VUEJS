@@ -5,7 +5,7 @@
 @import url('./Input.css');
 @import url('./Table.css');
 @import url('./Combobox.css');
-
+@import url('./Properties.css');
 
 
 
@@ -28,7 +28,8 @@ body{
 }
 #main{
     position: relative;
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
 }
 .active{
     display: block;
@@ -37,43 +38,58 @@ body{
     color: #F65454 ;
 }
 .heading{
-    color: #000000;
+    color: var(--back-color);
     font-size: 24px;
     margin: 0;
     font-family: GoogleSans-Bold;
 }
 .title{
-    color: #000000;
+    color: var(--back-color);
     font-size: 16px;
     margin: 0;
     font-family: GoogleSans-Bold;
 }
 .title2{
-    color: #000000;
+    color: var(--back-color);
     font-size: 14px;
     margin: 0;
     font-family: GoogleSans-Bold;
 }
 .label-field__input{
-    color: #000000;
+    color: var(--back-color);
     font-size: 13px;
     margin: 0;
     font-family: GoogleSans-Medium;
 }
 .lable {
-    color: #454545;
+    color: var(--light-black);
     font-size: 13px;
     margin: 0;
     font-family: GoogleSans-Regular;
 }
 .even{
-    background-color: #e5e5e5;
+    background-color: var(--light-gray);
 }
 
-.img-exit{
-   position: absolute;
-   right: 2px;
-   top: 2px;
-}
 
+.delete__value{
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: var(--light-gray);
+    border-radius: 50%;
+    right: 42px;
+    text-align: center;
+    display: none;
+    cursor: pointer;
+}
+.delete__value.active{
+    display: block;
+}
+.delete__value img{
+    width: 13px;
+    margin-bottom: 5px;
+    margin-left: 0.4px;
+    
+}
 

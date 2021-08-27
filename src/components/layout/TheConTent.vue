@@ -1,5 +1,5 @@
 <template>
-    <div class="page">
+    <div class="page" :class="{'active':isActive}">
         <EmployeeList />
     </div>
 </template>
@@ -11,6 +11,12 @@ import EmployeeList from '../../view/employees/EmployeesList.vue'
 export default {
     name : "TheConTent",
     components :{EmployeeList},
+    props :{
+        isActive : {
+            type : Boolean,
+            default : true,
+        }
+    }
 }
 </script>
 
